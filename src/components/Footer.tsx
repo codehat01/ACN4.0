@@ -47,7 +47,7 @@ const Footer = () => {
             {/* College Image */}
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg"
+                src="src/images/Welcome.png"
                 alt="Amrita Vishwa Vidyapeetham Campus"
                 className="w-full h-64 object-cover"
               />
@@ -71,10 +71,26 @@ const Footer = () => {
                 </div>
                 <div>
                   <h4 className="text-lg font-bold text-white">Event Venue</h4>
-                  <p className="text-accent text-sm">ACN 3rd Edition</p>
+                  <p className="text-accent text-sm">ACN 4rd Edition</p>
                 </div>
               </div>
-              
+
+              {/* Google Maps Image & Link */}
+              <div className="mb-4">
+                <a
+                  href="https://maps.app.goo.gl/Jti2HcuEjwC52BYL9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300"
+                >
+                  <img
+                    src="src/images/maps.png"
+                    alt="Google Maps Location"
+                    className="w-full h-32 object-cover"
+                  />
+                </a>
+              </div>
+
               <div className="space-y-3 text-gray-300">
                 <div className="flex items-start space-x-3">
                   <MapPin className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
@@ -87,7 +103,7 @@ const Footer = () => {
                 
                 <div className="flex items-center space-x-3">
                   <Calendar className="w-5 h-5 text-accent" />
-                  <span className="text-sm">October 2024</span>
+                  <span className="text-sm">16/09/2025 to 20/08/2025</span>
                 </div>
                 
                 <div className="flex items-center space-x-3">
