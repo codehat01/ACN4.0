@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, Calendar, Clock, MapPin, User } from 'lucide
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [direction, setDirection] = useState(1); // 1 for right, -1 for left
   const [timeLeft, setTimeLeft] = useState({
     months: 0,
     days: 0,
@@ -39,7 +40,6 @@ const Hero = () => {
       image: "/src/images/conclave.jpg",
       duration: 20000,
       year: "2024",
-      hasCountdown: true
     },
     {
       id: 4,
@@ -92,6 +92,7 @@ const Hero = () => {
   // Auto-advance slides
   useEffect(() => {
     const timer = setInterval(() => {
+      setDirection(1);
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, slides[currentSlide].duration);
 
@@ -124,41 +125,62 @@ const Hero = () => {
   }, [currentSlide]);
 
   const nextSlide = () => {
+    setDirection(1);
     setCurrentSlide((prev) => (prev + 1) % slides.length);
   };
 
   const prevSlide = () => {
+    setDirection(-1);
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
   const goToSlide = (index: number) => {
+    setDirection(index > currentSlide ? 1 : -1);
     setCurrentSlide(index);
+  };
+
+  // Animation variants for sliding effect
+  const slideVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? '100%' : '-100%',
+      opacity: 0
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? '100%' : '-100%',
+      opacity: 0
+    })
   };
 
   return (
     <section id="home" className="relative h-screen w-full overflow-hidden">
-      <AnimatePresence mode="wait">
+      <AnimatePresence initial={false} custom={direction} mode="wait">
         <motion.div
           key={currentSlide}
+          custom={direction}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{
+            x: { type: "spring", stiffness: 300, damping: 30 },
+            opacity: { duration: 0.2 }
+          }}
           className="absolute inset-0"
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.9 }}
-          transition={{ duration: 1 }}
         >
-          {/* Background Image with Overlay */}
+          {/* Background Image with Dark Overlay for Text Readability */}
           <div className="absolute inset-0">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/70 to-accent/80 z-10" />
+            <div className="absolute inset-0 bg-black/40 z-10" />
             <motion.img
               src={slides[currentSlide].image}
               alt={slides[currentSlide].title}
-              className="w-full h-full object-contain sm:object-cover"
-              initial={{ scale: 1 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 8 }}
+              className="w-full h-full object-cover"
               style={{
-                width: '100%',
-                height: '100%',
                 objectPosition: 'center center'
               }}
             />
@@ -169,7 +191,7 @@ const Hero = () => {
             {[...Array(12)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute w-3 h-3 bg-accent/50 rounded-full"
+                className="absolute w-3 h-3 bg-blue-400/50 rounded-full"
                 animate={{
                   x: [0, 150, -80, 0],
                   y: [0, -100, 80, 0],
@@ -199,7 +221,7 @@ const Hero = () => {
             {[...Array(6)].map((_, i) => (
               <motion.div
                 key={`shape-${i}`}
-                className={`absolute ${i % 2 === 0 ? 'w-16 h-16 bg-accent/20' : 'w-12 h-12 bg-white/20'} ${
+                className={`absolute ${i % 2 === 0 ? 'w-16 h-16 bg-blue-400/20' : 'w-12 h-12 bg-white/20'} ${
                   i % 3 === 0 ? 'rounded-full' : i % 3 === 1 ? 'rounded-lg rotate-45' : 'rounded-none'
                 }`}
                 animate={{
@@ -233,7 +255,7 @@ const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-accent" />
+                <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
                 <span className="text-sm sm:text-base text-white font-semibold">{slides[currentSlide].year}</span>
               </motion.div>
 
@@ -249,7 +271,7 @@ const Hero = () => {
 
               {/* Subtitle */}
               <motion.h2
-                className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-accent font-semibold mb-3 sm:mb-4 px-2"
+                className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-blue-400 font-semibold mb-3 sm:mb-4 px-2"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
@@ -267,7 +289,7 @@ const Hero = () => {
                 {slides[currentSlide].description}
               </motion.p>
 
-              {/* Countdown Timer for 3rd slide */}
+              {/* Countdown Timer for countdown slides */}
               {slides[currentSlide].hasCountdown && (
                 <motion.div
                   className="mb-6 sm:mb-8 w-full px-2"
@@ -276,7 +298,7 @@ const Hero = () => {
                   transition={{ duration: 0.6, delay: 0.9 }}
                 >
                   <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-3 sm:p-4 w-full max-w-2xl mx-auto">
-                    <h3 className="text-accent text-base sm:text-lg font-semibold mb-3 sm:mb-4">Event Countdown</h3>
+                    <h3 className="text-blue-400 text-base sm:text-lg font-semibold mb-3 sm:mb-4">Event Countdown</h3>
                     <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-4">
                       {[
                         { label: 'Months', value: timeLeft.months },
@@ -294,7 +316,7 @@ const Hero = () => {
                           <div className="text-lg sm:text-xl md:text-2xl font-bold text-white">
                             {item.value.toString().padStart(2, '0')}
                           </div>
-                          <div className="text-accent text-xs sm:text-sm">{item.label}</div>
+                          <div className="text-blue-400 text-xs sm:text-sm">{item.label}</div>
                         </motion.div>
                       ))}
                     </div>
@@ -302,7 +324,7 @@ const Hero = () => {
                 </motion.div>
               )}
 
-              {/* Guest Cards for 4th slide */}
+              {/* Guest Cards for guest slides */}
               {slides[currentSlide].hasGuests && (
                 <motion.div
                   className="mb-8"
@@ -326,7 +348,7 @@ const Hero = () => {
                         style={{ transformStyle: 'preserve-3d' }}
                       >
                         <motion.div 
-                          className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 rounded-full overflow-hidden border-3 sm:border-4 border-accent/50"
+                          className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 rounded-full overflow-hidden border-3 sm:border-4 border-blue-400/50"
                           whileHover={{ scale: 1.05, rotate: 5 }}
                         >
                           <img 
@@ -336,7 +358,7 @@ const Hero = () => {
                           />
                         </motion.div>
                         <h4 className="text-white font-bold text-sm sm:text-base mb-1">{guest.name}</h4>
-                        <p className="text-accent text-xs sm:text-sm font-semibold mb-1">{guest.designation}</p>
+                        <p className="text-blue-400 text-xs sm:text-sm font-semibold mb-1">{guest.designation}</p>
                         <p className="text-white/80 text-xs line-clamp-2">{guest.organization}</p>
                       </motion.div>
                     ))}
@@ -352,14 +374,14 @@ const Hero = () => {
                 transition={{ duration: 0.6, delay: 1 }}
               >
                 <motion.button
-                  className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-white text-primary text-sm sm:text-base font-bold rounded-full hover:bg-gray-100 transition-colors duration-300 shadow-xl"
+                  className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-white text-gray-900 text-sm sm:text-base font-bold rounded-full hover:bg-gray-100 transition-colors duration-300 shadow-xl"
                   whileHover={{ scale: 1.03, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   Explore Events
                 </motion.button>
                 <motion.button
-                  className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-transparent text-white text-sm sm:text-base font-bold rounded-full border-2 border-white hover:bg-white hover:text-primary transition-all duration-300"
+                  className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-transparent text-white text-sm sm:text-base font-bold rounded-full border-2 border-white hover:bg-white hover:text-gray-900 transition-all duration-300"
                   whileHover={{ scale: 1.03, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -405,7 +427,7 @@ const Hero = () => {
               onClick={() => goToSlide(index)}
               className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full transition-all duration-300 ${
                 currentSlide === index 
-                  ? 'bg-accent scale-125' 
+                  ? 'bg-blue-400 scale-125' 
                   : 'bg-white/50 hover:bg-white/70'
               }`}
               whileHover={{ scale: 1.2 }}
@@ -419,7 +441,7 @@ const Hero = () => {
       {/* Slide Progress Bar */}
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20 z-30">
         <motion.div
-          className="h-full bg-accent"
+          className="h-full bg-blue-400"
           initial={{ width: '0%' }}
           animate={{ width: '100%' }}
           transition={{ 

@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, useMotionValue, useAnimation, AnimatePresence } from 'framer-motion';
 
 
-import img1 from '../images/1st.JPG';
+import img1 from '../images/1st.jpg';
 import img2 from '../images/2nd.jpg';
 import img3 from '../images/3rd.jpg';
 import img4 from '../images/conclave.jpg';

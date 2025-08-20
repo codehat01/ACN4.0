@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, ChevronUp } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [activeMobileDropdown, setActiveMobileDropdown] = useState<string | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
@@ -56,13 +57,18 @@ const Navbar = () => {
     }
     setIsMobileMenuOpen(false);
     setActiveDropdown(null);
+    setActiveMobileDropdown(null);
+  };
+
+  const toggleMobileDropdown = (itemName: string) => {
+    setActiveMobileDropdown(prev => prev === itemName ? null : itemName);
   };
 
   return (
     <>
       {/* Scroll Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#b22049] to-[#c9a646] z-50 origin-left"
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600 z-50 origin-left"
         style={{ scaleX: scrollProgress / 100 }}
         initial={{ scaleX: 0 }}
         animate={{ scaleX: scrollProgress / 100 }}
@@ -72,7 +78,7 @@ const Navbar = () => {
       <motion.nav
         className={`fixed z-40 transition-all duration-1000 ease-in-out ${
           isScrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-2xl rounded-[70px] mx-auto mt-5'
+            ? 'bg-black/95 backdrop-blur-md shadow-2xl rounded-[70px] mx-auto mt-5'
             : 'bg-transparent'
         }`}
         style={{
@@ -98,7 +104,7 @@ const Navbar = () => {
               <div className="relative">
                 <motion.div
                   className={`text-3xl font-bold transition-colors duration-300 ${
-                    isScrolled ? 'text-[#b22049]' : 'text-white'
+                    isScrolled ? 'text-blue-400' : 'text-white'
                   }`}
                   style={{ height: '75px', display: 'flex', alignItems: 'center' }}
                 >
@@ -127,7 +133,7 @@ const Navbar = () => {
                   <span>ACN 4TH EDITION</span>
                   <span>|</span>
                   <motion.button
-                    className="bg-gradient-to-r from-[#b22049] to-[#c9a646] text-white px-4 py-1 rounded-full text-sm font-bold hover:from-[#c9a646] hover:to-[#b22049] transition-all duration-300"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-bold hover:from-purple-600 hover:to-blue-600 transition-all duration-300"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -137,7 +143,7 @@ const Navbar = () => {
                   <span>ACN 4TH EDITION</span>
                   <span>|</span>
                   <motion.button
-                    className="bg-gradient-to-r from-[#b22049] to-[#c9a646] text-white px-4 py-1 rounded-full text-sm font-bold hover:from-[#c9a646] hover:to-[#b22049] transition-all duration-300"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-bold hover:from-purple-600 hover:to-blue-600 transition-all duration-300"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -160,8 +166,8 @@ const Navbar = () => {
                     onClick={() => scrollToSection(item.href)}
                     className={`relative font-medium transition-all duration-300 px-4 py-2 rounded-full flex items-center space-x-1 ${
                       isScrolled
-                        ? 'text-gray-700 hover:text-white hover:bg-[#b22049]'
-                        : 'text-white hover:text-white hover:bg-[#b22049]'
+                        ? 'text-white hover:text-white hover:bg-blue-600'
+                        : 'text-white hover:text-white hover:bg-blue-600'
                     }`}
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -176,7 +182,7 @@ const Navbar = () => {
                   <AnimatePresence>
                     {item.dropdown && activeDropdown === item.name && (
                       <motion.div
-                        className="absolute top-full left-0 mt-2 w-48 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50"
+                        className="absolute top-full left-0 mt-2 w-48 bg-black/95 backdrop-blur-md rounded-xl shadow-2xl border border-gray-700 overflow-hidden z-50"
                         initial={{ opacity: 0, y: -10, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -10, scale: 0.95 }}
@@ -185,7 +191,7 @@ const Navbar = () => {
                         {item.dropdown.map((subItem, subIndex) => (
                           <motion.button
                             key={subItem}
-                            className="w-full text-left px-4 py-3 text-gray-700 hover:bg-[#b22049] hover:text-white transition-colors duration-200 text-sm"
+                            className="w-full text-left px-4 py-3 text-gray-300 hover:bg-blue-600 hover:text-white transition-colors duration-200 text-sm"
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: subIndex * 0.05 }}
@@ -205,7 +211,7 @@ const Navbar = () => {
             <motion.button
               className={`lg:hidden p-2 rounded-lg transition-colors duration-300 ${
                 isScrolled
-                  ? 'text-gray-700 hover:bg-gray-100'
+                  ? 'text-white hover:bg-gray-800'
                   : 'text-white hover:bg-white/10'
               }`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -242,7 +248,7 @@ const Navbar = () => {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="lg:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-md shadow-lg border-t border-gray-200 rounded-b-3xl mx-4"
+              className="lg:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-md shadow-lg border-t border-gray-700 rounded-b-3xl mx-4"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
@@ -251,28 +257,76 @@ const Navbar = () => {
               <div className="px-4 py-6 space-y-2">
                 {navItems.map((item, index) => (
                   <div key={item.name}>
-                    <motion.button
-                      onClick={() => scrollToSection(item.href)}
-                      className="block w-full text-left py-3 px-4 text-gray-700 hover:text-white hover:bg-[#b22049] rounded-lg transition-colors duration-300 font-medium"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      {item.name}
-                    </motion.button>
-                    {item.dropdown && (
-                      <div className="ml-4 mt-2 space-y-1">
-                        {item.dropdown.map((subItem) => (
-                          <button
-                            key={subItem}
-                            className="block w-full text-left py-2 px-4 text-sm text-gray-600 hover:text-[#b22049] hover:bg-gray-50 rounded-lg transition-colors duration-200"
-                          >
-                            {subItem}
-                          </button>
-                        ))}
-                      </div>
-                    )}
+                    <div className="flex items-center justify-between">
+                      <motion.button
+                        onClick={() => scrollToSection(item.href)}
+                        className="flex-1 text-left py-3 px-4 text-gray-300 hover:text-white hover:bg-blue-600 rounded-lg transition-colors duration-300 font-medium"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        {item.name}
+                      </motion.button>
+                      
+                      {/* Mobile Dropdown Toggle */}
+                      {item.dropdown && (
+                        <motion.button
+                          onClick={() => toggleMobileDropdown(item.name)}
+                          className="p-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors duration-300"
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <AnimatePresence mode="wait">
+                            {activeMobileDropdown === item.name ? (
+                              <motion.div
+                                key="up"
+                                initial={{ rotate: -180 }}
+                                animate={{ rotate: 0 }}
+                                exit={{ rotate: 180 }}
+                                transition={{ duration: 0.2 }}
+                              >
+                                <ChevronUp className="w-4 h-4" />
+                              </motion.div>
+                            ) : (
+                              <motion.div
+                                key="down"
+                                initial={{ rotate: 180 }}
+                                animate={{ rotate: 0 }}
+                                exit={{ rotate: -180 }}
+                                transition={{ duration: 0.2 }}
+                              >
+                                <ChevronDown className="w-4 h-4" />
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </motion.button>
+                      )}
+                    </div>
+                    
+                    {/* Mobile Dropdown Content */}
+                    <AnimatePresence>
+                      {item.dropdown && activeMobileDropdown === item.name && (
+                        <motion.div
+                          className="ml-4 mt-2 space-y-1 overflow-hidden"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          {item.dropdown.map((subItem, subIndex) => (
+                            <motion.button
+                              key={subItem}
+                              className="block w-full text-left py-2 px-4 text-sm text-gray-400 hover:text-blue-400 hover:bg-gray-800 rounded-lg transition-colors duration-200"
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: subIndex * 0.05 }}
+                            >
+                              {subItem}
+                            </motion.button>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 ))}
               </div>

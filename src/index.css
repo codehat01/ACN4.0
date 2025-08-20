@@ -158,3 +158,19 @@ img {
     scroll-behavior: auto;
   }
 }
+
+/* Hide scrollbar and prevent overflow on mobile */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    scrollbar-width: none; /* Firefox */
+  }
+  body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}
+
+/* Ensure main container has non-static position for correct scroll offset */
+/* Example: */
+/* .main-container { position: relative; } */
