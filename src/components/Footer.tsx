@@ -139,7 +139,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold">Amrita CyberNation</h3>
-                  <p className="text-accent font-semibold">3rd Edition</p>
+                  <p className="text-accent font-semibold">4th Edition</p>
                 </div>
               </motion.div>
               
