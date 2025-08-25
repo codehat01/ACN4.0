@@ -68,6 +68,12 @@ const StyledWrapper = styled.div<{ $isFinished: boolean }>`
     font-weight: bold;
     text-transform: uppercase;
 
+    @media (max-width: 768px) {
+    
+      font-size: 30vw;
+    }
+
+
     /* Outline stroke */
     -webkit-text-stroke: 1px #000;
     paint-order: stroke fill;
@@ -81,7 +87,7 @@ const StyledWrapper = styled.div<{ $isFinished: boolean }>`
 
     background-clip: text;
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; /* ✅ Fix for mobile artifacts */
+    -webkit-text-fill-color: transparent; 
 
     animation: l10-0 3s linear infinite alternate, l10-1 4s linear 1;
   }
