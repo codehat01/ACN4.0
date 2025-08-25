@@ -34,7 +34,7 @@ const Footer = () => {
         }} />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 relative">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-5 relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           
           {/* Left Side - College Image and Event Info */}
@@ -139,7 +139,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold">Amrita CyberNation</h3>
-                  <p className="text-accent font-semibold">3rd Edition</p>
+                  <p className="text-accent font-semibold">4th Edition</p>
                 </div>
               </motion.div>
               
@@ -157,7 +157,7 @@ const Footer = () => {
             {/* Quick Links & Contact */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               {/* Quick Links */}
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
@@ -177,7 +177,7 @@ const Footer = () => {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </motion.div> */}
 
               {/* Contact Info */}
               <motion.div
@@ -253,7 +253,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <motion.div
-          className="border-t border-white/10 mt-12 pt-8 text-center"
+          className="border-t border-white/10 mt-8 pt-8 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7 }}
