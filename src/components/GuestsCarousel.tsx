@@ -1,8 +1,14 @@
-import React, { useRef, useState, useEffect } from "react";
+import imgA from "../images/a.jpg";
+import imgB from "../images/b.jpg";
+import imgC from "../images/c.jpg";
+import imgD from "../images/d.jpg";
+import imgE from "../images/e.jpg";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Autoplay } from "swiper/modules";
 import { Building2 } from "lucide-react";
+import type { Swiper as SwiperType } from "swiper"; // ✅ Import Swiper type
 
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -14,12 +20,20 @@ const Particles = () => (
   </div>
 );
 
-const GuestsCarousel = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-  const swiperRef = useRef(null);
+type Guest = {
+  name: string;
+  designation: string;
+  organization: string;
+  photo: string;
+  about: string;
+};
 
-  const [activeIndex, setActiveIndex] = useState(null);
+const GuestsCarousel = () => {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const isInView = useInView(ref, { once: true });
+
+  const swiperRef = useRef<SwiperType | null>(null); // ✅ Typed swiperRef
+  const [activeIndex, setActiveIndex] = useState<number | null>(null); // ✅ typed index
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -29,12 +43,12 @@ const GuestsCarousel = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const guests2024 = [
+  const guests2024: Guest[] = [
     {
       name: "Rajesh Ganesan",
       designation: "Chief Technology Officer",
       organization: "ManageEngine",
-      photo: "/guests/rajesh.jpg",
+      photo: imgA,
       about:
         "Rajesh has over 20 years of experience in enterprise IT and has been instrumental in building scalable tech products.",
     },
@@ -42,7 +56,7 @@ const GuestsCarousel = () => {
       name: "Dr. TR Reshmi",
       designation: "Professor & Head",
       organization: "Amrita University",
-      photo: "/guests/reshmi.jpg",
+      photo: imgB,
       about:
         "Dr. Reshmi is a leading academician in AI & cybersecurity with multiple research publications and awards.",
     },
@@ -50,7 +64,7 @@ const GuestsCarousel = () => {
       name: "Vinod Senthil T",
       designation: "Senior Security Consultant",
       organization: "Infosys",
-      photo: "/guests/vinod.jpg",
+      photo: imgC,
       about:
         "Vinod is a cybersecurity consultant specializing in cloud security, penetration testing, and compliance.",
     },
@@ -58,7 +72,7 @@ const GuestsCarousel = () => {
       name: "Aravind Gnanabaskaran",
       designation: "Cybersecurity Expert",
       organization: "TCS",
-      photo: "/guests/aravind.jpg",
+      photo: imgD,
       about:
         "Aravind is an expert in ethical hacking, with a decade of experience securing enterprise infrastructure.",
     },
@@ -66,7 +80,7 @@ const GuestsCarousel = () => {
       name: "Priya Sharma",
       designation: "CISO",
       organization: "Wipro Technologies",
-      photo: "/guests/priya.jpg",
+      photo: imgE,
       about:
         "Priya is a global leader in cybersecurity strategy and governance, working with Fortune 500 clients.",
     },
@@ -80,14 +94,14 @@ const GuestsCarousel = () => {
     },
   ];
 
-  const handleCardOpen = (index) => {
+  const handleCardOpen = (index: number) => {
     setActiveIndex(index);
-    swiperRef.current?.autoplay?.stop();
+    swiperRef.current?.autoplay?.stop(); // ✅ autoplay typed
   };
 
   const handleCardClose = () => {
     setActiveIndex(null);
-    swiperRef.current?.autoplay?.start();
+    swiperRef.current?.autoplay?.start(); // ✅ autoplay typed
   };
 
   return (
@@ -119,7 +133,7 @@ const GuestsCarousel = () => {
         grabCursor
         centeredSlides
         slidesPerView="auto"
-        loop={true}
+        loop
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         speed={900}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
@@ -158,17 +172,17 @@ const GuestsCarousel = () => {
                     }
               }
               transition={{ type: "spring", stiffness: 180, damping: 22 }}
-              className="relative bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl overflow-hidden w-[320px] md:w-[420px] text-center shadow-[0_0_40px_rgba(255,255,255,0.15)] cursor-pointer will-change-transform"
+              className="relative bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl overflow-hidden w-[380px] md:w-[500px] text-center shadow-[0_0_60px_rgba(255,255,255,0.18)] cursor-pointer will-change-transform"
             >
               {/* Glow Border */}
               <div className="absolute inset-0 rounded-3xl border-2 border-transparent bg-gradient-to-r from-indigo-500/40 to-pink-500/40 animate-pulse" />
 
               {/* Guest Photo */}
-              <div className="h-56 overflow-hidden relative">
+              <div className="h-[320px] md:h-[400px] overflow-hidden relative flex items-center justify-center">
                 <motion.img
                   src={guest.photo}
                   alt={guest.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-2xl"
                   animate={{ opacity: activeIndex === index ? 0.4 : 1 }}
                   transition={{ duration: 0.4 }}
                 />
@@ -189,7 +203,6 @@ const GuestsCarousel = () => {
               </div>
 
               {/* Expanding About Section */}
-              {/* Expanding About Section at Bottom */}
               <AnimatePresence>
                 {activeIndex === index && (
                   <motion.div
@@ -206,7 +219,6 @@ const GuestsCarousel = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
-
             </motion.div>
           </SwiperSlide>
         ))}

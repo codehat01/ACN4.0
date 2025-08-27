@@ -1,218 +1,147 @@
-import React, { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Search, User, Star, Award } from 'lucide-react';
+import React, { useState, useEffect, useRef } from "react";
+import imgA from '../images/a.jpg';
+import imgB from '../images/b.jpg';
+import imgC from '../images/c.jpg';
+import imgD from '../images/d.jpg';
+import imgE from '../images/e.jpg';
+import imgF from '../images/f.jpg';
 
-const PreviousGuests = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-  const [searchTerm, setSearchTerm] = useState('');
+const guestData = [
+  { src: imgA, name: "Guest A" },
+  { src: imgB, name: "Guest B" },
+  { src: imgC, name: "Guest C" },
+  { src: imgD, name: "Guest D" },
+  { src: imgE, name: "Guest E" },
+  { src: imgF, name: "Guest F" },
+];
+const loopedGuests = [...guestData, ...guestData];
 
-  const previousGuests = [
-    { name: 'Dr. Anand Kumar', year: '2023', organization: 'IIT Madras', expertise: 'AI Security', image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg' },
-    { name: 'Sanjay Katkar', year: '2023', organization: 'Quick Heal Technologies', expertise: 'Malware Analysis', image: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg' },
-    { name: 'Rakesh Krishnan', year: '2023', organization: 'Infosys Cyber Defense', expertise: 'Threat Intelligence', image: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg' },
-    { name: 'Dr. Prabaharan Poornachandran', year: '2022', organization: 'Amrita Vishwa Vidyapeetham', expertise: 'Cyber Forensics', image: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg' },
-    { name: 'Amit Sharma', year: '2022', organization: 'Microsoft India', expertise: 'Cloud Security', image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg' },
-    { name: 'Priya Nair', year: '2022', organization: 'Cisco Systems', expertise: 'Network Security', image: 'https://images.pexels.com/photos/1181424/pexels-photo-1181424.jpeg' },
-    { name: 'Venkatesh Sundar', year: '2023', organization: 'Zoho Corporation', expertise: 'Data Protection', image: 'https://images.pexels.com/photos/1043473/pexels-photo-1043473.jpeg' },
-    { name: 'Dr. M. Sethumadhavan', year: '2022', organization: 'DRDO', expertise: 'Cryptography', image: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg' },
-    { name: 'Kiran Maraju', year: '2023', organization: 'McAfee', expertise: 'Endpoint Security', image: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg' },
-    { name: 'Deepa Srinivasan', year: '2022', organization: 'IBM Security', expertise: 'Risk Management', image: 'https://images.pexels.com/photos/1181519/pexels-photo-1181519.jpeg' },
-    { name: 'Rajesh Ganesan', year: '2023', organization: 'ManageEngine', expertise: 'IT Security', image: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg' },
-    { name: 'Vinod Senthil T', year: '2023', organization: 'Infosys', expertise: 'Security Consulting', image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg' },
-    { name: 'Aravind Gnanabaskaran', year: '2023', organization: 'TCS', expertise: 'Cybersecurity Expert', image: 'https://images.pexels.com/photos/1043473/pexels-photo-1043473.jpeg' },
-    { name: 'Suresh Kumar', year: '2022', organization: 'Wipro', expertise: 'Blockchain Security', image: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg' },
-    { name: 'Meera Krishnan', year: '2022', organization: 'HCL Technologies', expertise: 'Security Architecture', image: 'https://images.pexels.com/photos/1181424/pexels-photo-1181424.jpeg' }
-  ];
+const GalleryAnimation = () => {
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const animationRef = useRef<number | null>(null);
 
-  const filteredGuests = previousGuests.filter(guest =>
-    guest.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    guest.organization.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    guest.expertise.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const [offset, setOffset] = useState(0);
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Animate
+  useEffect(() => {
+    const animate = () => {
+      if (!isMouseDown && !isPaused) {
+        setOffset((prev) => {
+          const newOffset = prev - 0.5; // scroll speed (px/frame)
+          const totalWidth = trackRef.current?.scrollWidth ? trackRef.current.scrollWidth / 2 : 0;
+          return newOffset <= -totalWidth ? 0 : newOffset;
+        });
+      }
+      animationRef.current = requestAnimationFrame(animate);
+    };
+    animationRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    };
+  }, [isMouseDown, isPaused]);
+
+  // Apply transform
+  useEffect(() => {
+    if (trackRef.current) {
+      trackRef.current.style.transform = `translateX(${offset}px)`;
+      trackRef.current.style.transition = isMouseDown
+        ? "none"
+        : "transform 0.15s ease-out";
+    }
+  }, [offset, isMouseDown]);
+
+  // Drag handling
+  const handleDrag = (clientX: number) => {
+    const diff = clientX - startX;
+    setOffset((prev) => prev + diff);
+    setStartX(clientX);
+  };
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsMouseDown(true);
+    setStartX(e.clientX);
+  };
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setIsMouseDown(true);
+    setStartX(e.touches[0].clientX);
+  };
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (isMouseDown) handleDrag(e.clientX);
+    };
+    const handleTouchMove = (e: TouchEvent) => {
+      if (isMouseDown) handleDrag(e.touches[0].clientX);
+    };
+    const handleEnd = () => {
+      if (isMouseDown) setIsMouseDown(false);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("touchmove", handleTouchMove);
+    window.addEventListener("mouseup", handleEnd);
+    window.addEventListener("touchend", handleEnd);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("mouseup", handleEnd);
+      window.removeEventListener("touchend", handleEnd);
+    };
+  }, [isMouseDown, startX]);
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-gray-100 overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          ref={ref}
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.div
-            className="inline-flex items-center space-x-2 bg-primary/10 px-4 py-2 rounded-full mb-4"
-            initial={{ scale: 0 }}
-            animate={isInView ? { scale: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <Star className="w-5 h-5 text-primary" />
-            <span className="text-primary font-semibold">Hall of Fame</span>
-          </motion.div>
-          
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
-            Previous Edition Legends
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Celebrating the cybersecurity pioneers who shaped our journey
+    <div className="bg-gradient-to-br from-slate-50 via-white to-gray-100 flex flex-col items-center py-12 px-4">
+      <div className="w-full max-w-7xl">
+        {/* Header */}
+        <div className="text-center mb-6">
+          <h1 className="text-3xl md:text-5xl font-bold tracking-wider mb-4 bg-gradient-to-r from-[#b22049] to-[#e63965] bg-clip-text text-transparent">
+            GALLERY
+          </h1>
+          <p className="text-gray-600 text-sm md:text-base max-w-2xl mx-auto">
+            Distinguished Chief Guests & Speakers from Previous Years
           </p>
-
-          {/* Enhanced Search Bar */}
-          <motion.div 
-            className="relative max-w-md mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <input
-              type="text"
-              placeholder="Search by name, organization, or expertise..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all duration-300 bg-white shadow-lg"
-            />
-          </motion.div>
-        </motion.div>
-
-        {/* Horizontal Scrolling Container */}
-        <div className="relative">
-          {/* Gradient Masks */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-gray-50 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-gray-50 to-transparent z-10 pointer-events-none" />
-
-          {/* Scrolling Animation Container */}
-          <motion.div
-            className="flex space-x-6 pb-4"
-            animate={{
-              x: [0, -50 * filteredGuests.length]
-            }}
-            transition={{
-              x: {
-                repeat: Infinity,
-                repeatType: 'loop',
-                duration: filteredGuests.length * 3,
-                ease: 'linear'
-              }
-            }}
-            style={{ width: `${300 * filteredGuests.length * 2}px` }}
-          >
-            {/* First set of guests */}
-            {filteredGuests.map((guest, index) => (
-              <motion.div
-                key={`first-${index}`}
-                className="flex-shrink-0 w-80 bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 group border border-gray-100 hover:border-primary/20"
-                initial={{ opacity: 0, y: 50 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ 
-                  y: -10, 
-                  scale: 1.02,
-                  boxShadow: "0 25px 50px -12px rgba(178, 32, 73, 0.25)"
-                }}
-              >
-                <div className="text-center">
-                  <motion.div 
-                    className="w-20 h-20 mx-auto mb-4 rounded-2xl overflow-hidden group-hover:scale-110 transition-transform duration-300 shadow-lg"
-                    whileHover={{ rotate: 5 }}
-                  >
-                    <img 
-                      src={guest.image} 
-                      alt={guest.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </motion.div>
-                  
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-primary transition-colors duration-300 text-center">
-                      {guest.name}
-                    </h3>
-                    
-                    <p className="text-accent font-semibold mb-2 text-sm text-center">
-                      {guest.expertise}
-                    </p>
-                    
-                    <p className="text-gray-600 text-sm mb-3 text-center">
-                      {guest.organization}
-                    </p>
-                    
-                    <div className="flex items-center justify-center space-x-3">
-                      <span className="inline-flex items-center px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full">
-                        <Award className="w-3 h-3 mr-1" />
-                        {guest.year}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-
-            {/* Duplicate set for seamless loop */}
-            {filteredGuests.map((guest, index) => (
-              <motion.div
-                key={`second-${index}`}
-                className="flex-shrink-0 w-80 bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 group border border-gray-100 hover:border-primary/20"
-                whileHover={{ 
-                  y: -10, 
-                  scale: 1.02,
-                  boxShadow: "0 25px 50px -12px rgba(178, 32, 73, 0.25)"
-                }}
-              >
-                <div className="text-center">
-                  <motion.div 
-                    className="w-20 h-20 mx-auto mb-4 rounded-2xl overflow-hidden group-hover:scale-110 transition-transform duration-300 shadow-lg"
-                    whileHover={{ rotate: 5 }}
-                  >
-                    <img 
-                      src={guest.image} 
-                      alt={guest.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </motion.div>
-                  
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-primary transition-colors duration-300 text-center">
-                      {guest.name}
-                    </h3>
-                    
-                    <p className="text-accent font-semibold mb-2 text-sm text-center">
-                      {guest.expertise}
-                    </p>
-                    
-                    <p className="text-gray-600 text-sm mb-3 text-center">
-                      {guest.organization}
-                    </p>
-                    
-                    <div className="flex items-center justify-center space-x-3">
-                      <span className="inline-flex items-center px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full">
-                        <Award className="w-3 h-3 mr-1" />
-                        {guest.year}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
         </div>
 
-        {filteredGuests.length === 0 && (
-          <motion.div
-            className="text-center py-12"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+        {/* Gallery */}
+        <div className="relative w-full overflow-hidden mb-6 flex justify-center">
+          <div
+            ref={trackRef}
+            className="flex items-center gap-4 md:gap-8 will-change-transform cursor-grab active:cursor-grabbing"
+            onMouseDown={handleMouseDown}
+            onTouchStart={handleTouchStart}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
           >
-            <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Search className="w-12 h-12 text-gray-400" />
-            </div>
-            <p className="text-gray-500 text-lg">No guests found matching your search.</p>
-            <p className="text-gray-400 text-sm mt-2">Try searching with different keywords</p>
-          </motion.div>
-        )}
+            {loopedGuests.map((guest, index) => (
+              <div key={index} className="flex flex-col items-center w-[260px] md:w-[340px]">
+                <img
+                  className="image w-[260px] h-[260px] md:w-[320px] md:h-[320px] object-cover rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.15)] transition-all duration-[0.4s] select-none pointer-events-auto bg-[#222] hover:scale-[1.08] hover:rotate-[-2deg] hover:shadow-[0_8px_32px_rgba(178,32,73,0.25)] hover:z-[2]"
+                  src={guest.src}
+                  alt={guest.name}
+                  draggable={false}
+                  style={{ objectPosition: `center` }}
+                />
+                <span className="mt-3 text-white text-base md:text-lg font-semibold text-center drop-shadow-lg">
+                  {guest.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Button */}
+        <div className="flex justify-center mt-6 md:mt-10">
+          <a
+            href="/gallery/gallery.html"
+            className="px-6 py-3 bg-gradient-to-r from-[#b22049] to-[#e63965] text-white rounded-full font-semibold hover:scale-105 hover:shadow-lg transition-transform"
+          >
+            View Full Gallery
+          </a>
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
 
-export default PreviousGuests;
+export default GalleryAnimation;
