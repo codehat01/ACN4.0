@@ -1,0 +1,116 @@
+.galleries {
+  margin: 40px auto;
+  max-width: 900px;
+  background: #181818;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  padding: 32px 24px 48px 24px;
+  position: relative;
+  text-align: center;
+}
+.gallery-text {
+  color: #fff;
+  font-size: 2.2rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+#image-track {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  min-height: 220px;
+  transition: box-shadow 0.3s;
+  will-change: transform;
+}
+#image-track .image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transition: transform 0.4s, box-shadow 0.4s;
+  user-select: none;
+  pointer-events: auto;
+  background: #222;
+}
+#image-track .image:hover {
+  transform: scale(1.08) rotate(-2deg);
+  box-shadow: 0 8px 32px rgba(178,32,73,0.25);
+  z-index: 2;
+}
+.arrow {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  background: #b22049;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 10;
+  transition: background 0.2s;
+}
+.arrow img {
+  width: 28px;
+  height: 28px;
+  filter: invert(1);
+}
+.arrow:hover {
+  background: #fff;
+}
+.arrow:hover img {
+  filter: invert(18%) sepia(97%) saturate(7492%) hue-rotate(329deg) brightness(90%) contrast(101%);
+}
+.animated-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 130px;
+  height: 35px;
+  background-color: #b22049;
+  color: white;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s, background-color 0.3s;
+  border-radius: 40px;
+  margin: 0 10px;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+.animated-button span {
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s;
+  white-space: nowrap;
+}
+.animated-button:hover {
+  background-color: #fff;
+  color: #b22049;
+}
+.animated-button:hover span {
+  color: #b22049;
+}
+body {
+  background: #101010;
+  margin: 0;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+@media (max-width: 600px) {
+  .galleries { padding: 12px 2px 32px 2px; }
+  #image-track .image { width: 120px; height: 120px; }
+  .gallery-text { font-size: 1.2rem; }
+}

@@ -138,7 +138,7 @@ const Editions: React.FC = () => {
   const timelinePath = 'M 400 0 Q 200 200 400 400 Q 600 600 400 800 Q 200 1000 400 1200';
 
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
+  <section className="py-20 bg-gradient-to-br from-platinumGray to-royalBlue overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-20"

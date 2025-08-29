@@ -10,6 +10,6 @@ export default defineConfig({
   assetsInclude: ['**/*.JPG'],
   server: {
     host: '0.0.0.0',
-    port: 5173,
+    port: 8080,
   },
 });

@@ -4,9 +4,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#b22049',
-        secondary: '#ffffff',
-        accent: '#c9a646',
+    deepNavy: '#0F172A', // Main brand, headers, navigation
+    royalBlue: '#1E40AF', // Links, buttons, accents
+    elegantGold: '#D97706', // Premium accents, highlights
+    emeraldGreen: '#059669', // Success states, trust indicators
+    pureWhite: '#FFFFFF', // Clean backgrounds
+    platinumGray: '#F8FAFC', // Subtle backgrounds
+    charcoal: '#374151', // Professional text
+    midnight: '#111827', // Strong contrast text
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
