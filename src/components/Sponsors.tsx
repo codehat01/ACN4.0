@@ -1,166 +1,139 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useMemo } from "react";
 
-const Sponsors = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+// --- Your logo imports (keep paths as-is) ---
+import Ashok_Leyland from "../images/Sponsors/Ashok_Leyland.png";
+import CISAI from "../images/Sponsors/CISAI.png";
+import CUB from "../images/Sponsors/CUB.png";
+import Hack_The_Box from "../images/Sponsors/Hack_The_Box.png";
+import Innspark from "../images/Sponsors/Innspark.png";
+import ISEA from "../images/Sponsors/ISEA.png";
+import Manag_Engine from "../images/Sponsors/Manag_Engine.png";
+import MRF from "../images/Sponsors/MRF.jpg";
+import Quick_Heal from "../images/Sponsors/Quick_Heal.png";
+import Skills_Da from "../images/Sponsors/Skills_Da.png";
+import TCS from "../images/Sponsors/TCS.png";
+import Wipro from "../images/Sponsors/Wipro.png";
 
-  const sponsors = [
-    { 
-      name: 'Microsoft', 
-      logo: 'https://logos-world.net/wp-content/uploads/2020/09/Microsoft-Logo.png',
-      category: 'Platinum'
-    },
-    { 
-      name: 'Google', 
-      logo: 'https://logos-world.net/wp-content/uploads/2020/09/Google-Logo.png',
-      category: 'Platinum'
-    },
-    { 
-      name: 'Amazon', 
-      logo: 'https://logos-world.net/wp-content/uploads/2020/04/Amazon-Logo.png',
-      category: 'Gold'
-    },
-    { 
-      name: 'IBM', 
-      logo: 'https://logos-world.net/wp-content/uploads/2020/09/IBM-Logo.png',
-      category: 'Gold'
-    },
-    { 
-      name: 'Cisco', 
-      logo: 'https://logos-world.net/wp-content/uploads/2020/11/Cisco-Logo.png',
-      category: 'Silver'
-    },
-    { 
-      name: 'Intel', 
-      logo: 'https://logos-world.net/wp-content/uploads/2020/03/Intel-Logo.png',
-      category: 'Silver'
-    },
-    { 
-      name: 'Oracle', 
-      logo: 'https://logos-world.net/wp-content/uploads/2020/09/Oracle-Logo.png',
-      category: 'Silver'
-    },
-    { 
-      name: 'Salesforce', 
-      logo: 'https://logos-world.net/wp-content/uploads/2020/09/Salesforce-Logo.png',
-      category: 'Bronze'
-    },
-  ];
+const SPONSORS = [
+  { name: "Ashok Leyland", logo: Ashok_Leyland },
+  { name: "CISAI", logo: CISAI },
+  { name: "CUB", logo: CUB },
+  { name: "Hack The Box", logo: Hack_The_Box },
+  { name: "Innspark", logo: Innspark },
+  { name: "ISEA", logo: ISEA },
+  { name: "ManageEngine", logo: Manag_Engine },
+  { name: "MRF", logo: MRF },
+  { name: "Quick Heal", logo: Quick_Heal },
+  { name: "Skills DA", logo: Skills_Da },
+  { name: "TCS", logo: TCS },
+  { name: "Wipro", logo: Wipro },
+  // Add more logos freely — marquee stays seamless
+];
+
+// Repeat the array N times to ensure each lane is wide enough even on big screens
+const repeat = (arr, times = 3) => Array.from({ length: times }, () => arr).flat();
+
+const Card = ({ item }) => (
+  <div
+    className="w-44 sm:w-48 md:w-52 h-24 sm:h-28 md:h-32 flex-shrink-0 rounded-2xl bg-gray-900/80 shadow-lg border border-gray-800/70
+               hover:border-[var(--accent)]/30 transition-all duration-500 group"
+  >
+    <div className="relative w-full h-full p-3 sm:p-4 flex items-center justify-center rounded-2xl">
+      <img
+        src={item.logo}
+        alt={item.name}
+        loading="lazy"
+        decoding="async"
+        className="max-w-full max-h-full object-contain transition-all duration-500"
+      />
+      <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-[var(--accent)]/10 via-transparent to-transparent" />
+    </div>
+  </div>
+);
+
+const MarqueeRow = ({ items, reverse = false, speedSec = 30, gapClass = "gap-8" }) => {
+  // Build a long sequence and then duplicate once more for seamless 200% track
+  const longSeq = useMemo(() => repeat(items, 3), [items]);
+  const track = useMemo(() => [...longSeq, ...longSeq], [longSeq]);
 
   return (
-    <section id="sponsors" className="py-24 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
+    <div className="relative overflow-hidden">
+      {/* Edge fades for elegance */}
+      <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-gray-900 to-transparent z-10" />
+      <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-gray-900 to-transparent z-10" />
+
+      <div
+        className={`marquee-track flex ${gapClass} items-center will-change-transform`}
+        style={{
+          animation: `${reverse ? "scrollXRev" : "scrollX"} var(--speed, ${speedSec}s) linear infinite`,
+        }}
+      >
+        {track.map((it, i) => (
+          <Card key={`${it.name}-${i}`} item={it} />
+        ))}
       </div>
-      
+    </div>
+  );
+};
+
+const SponsorsWeaveMarquee = () => {
+  const accent = "#a3133f"; // your brand accent
+  const split = Math.ceil(SPONSORS.length / 2);
+  const row1 = SPONSORS.slice(0, split);
+  const row2 = SPONSORS.slice(split);
+
+  // Ensure both rows have content; if one is short, borrow from the other
+  const safeRow1 = row1.length ? row1 : SPONSORS;
+  const safeRow2 = row2.length ? row2 : SPONSORS;
+
+  return (
+    <section
+      id="sponsors"
+      className="relative overflow-hidden py-20 bg-gradient-to-br from-platinumGray to-royalBlue"
+      style={{ ["--accent"]: accent, ["--speed"]: "30s" }}
+      aria-label="Sponsors"
+    >
+      {/* Local keyframes for perfect seamless scroll (200% track → translateX(-50%)) */}
+      <style>{`
+        @keyframes scrollX { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        @keyframes scrollXRev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+        .marquee-track { width: max-content; }
+        .marquee-track:hover { animation-play-state: paused; }
+      `}</style>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          ref={ref}
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.div
-            className="inline-flex items-center space-x-2 bg-accent/20 px-6 py-3 rounded-full mb-6"
-            initial={{ scale: 0 }}
-            animate={isInView ? { scale: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <span className="text-accent font-semibold">Powered By</span>
-          </motion.div>
-          
-          <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            Our <span className="text-accent">Partners</span>
+        <div className="text-center mb-10 sm:mb-14">
+          <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm tracking-wide text-[var(--accent)] font-semibold backdrop-blur">
+            Powered By
+          </span>
+          <h2 className="mt-5 text-3xl sm:text-5xl font-extrabold text-white leading-tight">
+            Our <span className="text-[var(--accent)]">Sponsors</span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            Collaborating with global technology leaders to advance cybersecurity education and innovation
+          <p className="mt-3 text-sm sm:text-lg text-gray-300/90 max-w-3xl mx-auto">
+            Collaborating with industry leaders to advance cybersecurity education and innovation.
           </p>
-        </motion.div>
-
-        <div className="relative overflow-hidden">
-          {/* Gradient Masks */}
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-gray-900 to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-gray-900 to-transparent z-10" />
-
-          {/* Marquee Container */}
-          <motion.div
-            className="flex space-x-12 items-center"
-            animate={{
-              x: [0, -150 * sponsors.length]
-            }}
-            transition={{
-              x: {
-                repeat: Infinity,
-                repeatType: 'loop',
-                duration: 25,
-                ease: 'linear'
-              }
-            }}
-            style={{ width: `${300 * sponsors.length}px` }}
-          >
-            {/* First set of sponsors */}
-            {sponsors.map((sponsor, index) => (
-              <motion.div
-                key={`first-${index}`}
-                className="flex-shrink-0 w-48 h-28 bg-white rounded-2xl flex items-center justify-center shadow-2xl group hover:shadow-3xl transition-all duration-500 border border-gray-200 hover:border-accent/30"
-                whileHover={{ scale: 1.08, y: -8 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <div className="relative w-full h-full p-4 flex items-center justify-center">
-                  <img
-                    src={sponsor.logo}
-                    alt={sponsor.name}
-                    className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-                </div>
-              </motion.div>
-            ))}
-
-            {/* Duplicate set for seamless loop */}
-            {sponsors.map((sponsor, index) => (
-              <motion.div
-                key={`second-${index}`}
-                className="flex-shrink-0 w-48 h-28 bg-white rounded-2xl flex items-center justify-center shadow-2xl group hover:shadow-3xl transition-all duration-500 border border-gray-200 hover:border-accent/30"
-                whileHover={{ scale: 1.08, y: -8 }}
-              >
-                <div className="relative w-full h-full p-4 flex items-center justify-center">
-                  <img
-                    src={sponsor.logo}
-                    alt={sponsor.name}
-                    className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
         </div>
 
-        <motion.div
-          className="text-center mt-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          <motion.button
-            className="px-10 py-4 bg-gradient-to-r from-accent to-accent/80 text-gray-900 font-bold rounded-full hover:from-accent/90 hover:to-accent/70 transition-all duration-300 shadow-xl hover:shadow-2xl"
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
+        {/* Two continuous lanes */}
+        <div className="space-y-8 sm:space-y-12">
+          {/* Top row (left → right or right → left). We choose leftwards for variety */}
+          <MarqueeRow items={safeRow1} reverse={false} speedSec={28} />
+          {/* Bottom row opposite direction */}
+          <MarqueeRow items={safeRow2} reverse={true} speedSec={32} />
+        </div>
+
+        {/* CTA (optional) */}
+        <div className="text-center mt-12 sm:mt-16">
+          <button
+            className="px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-semibold text-gray-900 bg-[var(--accent)] hover:bg-[#8d1034] active:bg-[#780d2c] transition-colors shadow-[0_8px_24px_rgba(163,19,63,0.45)]"
+            aria-label="Become a Partner"
           >
-            Partner With Us
-          </motion.button>
-        </motion.div>
+            All Partner's
+          </button>
+        </div>
       </div>
     </section>
   );
 };
 
-export default Sponsors;
+export default SponsorsWeaveMarquee;

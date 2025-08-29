@@ -1,292 +1,344 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Shield, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Calendar, Clock, Users } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
+import {
+  Shield,
+  Mail,
+  Phone,
+  MapPin,
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Calendar,
+  Clock,
+  Users,
+  ArrowUp,
+  ExternalLink,
+  Copy,
+} from "lucide-react";
 
-const Footer = () => {
-  const quickLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Events', href: '#events' },
-    { name: 'Gallery', href: '#gallery' },
-    { name: 'Contact', href: '#contact' }
-  ];
+// --- NOTES -------------------------------------------------------------
+// • Updated with proper Google Maps Embed
+// • maps.png acts as a fallback image while iframe loads
+// • Fully responsive, works on mobile and desktop
+// ----------------------------------------------------------------------
 
-  const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' }
-  ];
+const FOOTER_LINKS = [
+  { name: "Home", href: "#home" },
+  { name: "About", href: "#about" },
+  { name: "Events", href: "#events" },
+  { name: "Gallery", href: "#gallery" },
+  { name: "Contact", href: "#contact" },
+];
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+const SOCIALS = [
+  { icon: Facebook, href: "#", label: "Facebook" },
+  { icon: Twitter, href: "#", label: "Twitter" },
+  { icon: Instagram, href: "#", label: "Instagram" },
+  { icon: Linkedin, href: "#", label: "LinkedIn" },
+];
+
+const VENUE = {
+  title: "Amrita Vishwa Vidyapeetham",
+  subtitle: "Chennai Campus",
+  address: [
+    "Amrita Vishwa Vidyapeetham",
+    "Vengal Village, Chennai - 601103",
+    "Tamil Nadu, India",
+  ],
+  mapUrl: "https://maps.app.goo.gl/Jti2HcuEjwC52BYL9",
+  coverSrc: "/src/images/Welcome.png", // banner image
+  mapImgSrc: "/src/images/maps.png",   // static fallback map
+  event: {
+    name: "ACN 4th Edition",
+    dateRange: "16–20 Sep 2025",
+    time: "9:00 AM – 6:00 PM",
+    expected: "1000+ Participants",
+  },
+};
+
+// Proper Google Maps Embed URL (lat/long of venue)
+const embedSrc =
+  "https://maps.google.com/maps?&q=13.2629694,80.0274183&z=17&output=embed";
+
+function scrollToHash(href: string) {
+  if (!href?.startsWith("#")) return;
+  const el = document.querySelector(href);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+const fadeUp = {
+  initial: { opacity: 0, y: 16 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5 },
+};
+
+export default function Footer() {
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
+    <footer
+      className="relative text-white selection:bg-white/20"
+      aria-labelledby="site-footer-heading"
+    >
+      <h2 id="site-footer-heading" className="sr-only">
+        Site Footer
+      </h2>
+
+      {/* Decorative gradient backdrop */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-deepNavy via-midnight to-black" />
+
+      {/* Soft grid pattern */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.06]"
+      >
+        <svg
+          className="h-full w-full"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <pattern
+              id="dots"
+              width="40"
+              height="40"
+              patternUnits="userSpaceOnUse"
+            >
+              <circle cx="1" cy="1" r="1" fill="white" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#dots)" />
+        </svg>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-5 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
-          {/* Left Side - College Image and Event Info */}
-          <motion.div
-            className="space-y-8"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            {/* College Image */}
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <img
-                src="src/images/Welcome.png"
-                alt="Amrita Vishwa Vidyapeetham Campus"
-                className="w-full h-64 object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4">
-                <h3 className="text-white text-xl font-bold mb-1">Amrita Vishwa Vidyapeetham</h3>
-                <p className="text-white/90 text-sm">Chennai Campus</p>
-              </div>
-            </div>
+      {/* Top border wave */}
+      <div aria-hidden className="absolute -top-6 left-0 right-0 -z-10">
+        <svg
+          viewBox="0 0 1440 80"
+          className="h-8 w-full"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,32 C240,64 480,0 720,16 C960,32 1200,96 1440,64 L1440,0 L0,0 Z"
+            className="fill-gray-900"
+          />
+        </svg>
+      </div>
 
-            {/* Event Location & Details */}
-            <motion.div
-              className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center">
-                  <MapPin className="w-6 h-6 text-accent" />
-                </div>
-                <div>
-                  <h4 className="text-lg font-bold text-white">Event Venue</h4>
-                  <p className="text-accent text-sm">ACN 4rd Edition</p>
-                </div>
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+        {/* 👉 Mobile: flex-col-reverse (Contact on top, Venue below)
+            👉 Desktop: grid 2 cols (Venue left, Contact right) */}
+        <div className="flex flex-col-reverse gap-10 lg:grid lg:grid-cols-2">
+          {/* Left: Venue Card (first in DOM so desktop keeps it left) */}
+{/* Left: Venue Card (Map on top, then collage image) */}
+        <motion.section
+          {...fadeUp}
+          className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl"
+        >
+          {/* MAP FIRST */}
+          <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 m-6 mt-6">
+            <div className="flex items-center justify-between px-4 py-3">
+              <div className="flex items-center gap-2">
+                <MapPin className="h-4 w-4 text-emerald-300" />
+                <span className="caption">Campus Map</span>
               </div>
-
-              {/* Google Maps Image & Link */}
-              <div className="mb-4">
+              <div className="flex items-center gap-2">
                 <a
-                  href="https://maps.app.goo.gl/Jti2HcuEjwC52BYL9"
+                  href={VENUE.mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block rounded-xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300"
+                  className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
                 >
-                  <img
-                    src="src/images/maps.png"
-                    alt="Google Maps Location"
-                    className="w-full h-32 object-cover"
-                  />
+                  Open in Maps <ExternalLink className="h-3.5 w-3.5" />
                 </a>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const text = [...VENUE.address].join(", ");
+                    if (navigator?.clipboard?.writeText)
+                      navigator.clipboard.writeText(text);
+                  }}
+                  className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-transparent px-3 py-1.5 text-xs font-medium text-gray-200 transition hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
+                  aria-label="Copy venue address"
+                >
+                  <Copy className="h-3.5 w-3.5" /> Copy
+                </button>
               </div>
+            </div>
+            <div className="relative h-40 sm:h-48 md:h-56">
+              {/* Fallback image */}
+              <img
+                src={VENUE.mapImgSrc}
+                alt="Static map preview"
+                className="absolute inset-0 h-full w-full object-cover"
+                loading="lazy"
+              />
+              {/* Google Maps Embed */}
+              <iframe
+                title="Amrita Vishwa Vidyapeetham, Chennai — Google Maps"
+                src={embedSrc}
+                className="relative h-full w-full border-0 filter grayscale-[20%] contrast-105"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+              <div className="pointer-events-none absolute inset-0 rounded-b-xl ring-1 ring-inset ring-white/10" />
+            </div>
+          </div>
 
-              <div className="space-y-3 text-gray-300">
-                <div className="flex items-start space-x-3">
-                  <MapPin className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-medium text-white">Amrita Vishwa Vidyapeetham</p>
-                    <p className="text-sm">Vengal Village, Chennai - 601103</p>
-                    <p className="text-sm">Tamil Nadu, India</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-3">
-                  <Calendar className="w-5 h-5 text-accent" />
-                  <span className="text-sm">16/09/2025 to 20/08/2025</span>
-                </div>
-                
-                <div className="flex items-center space-x-3">
-                  <Clock className="w-5 h-5 text-accent" />
-                  <span className="text-sm">9:00 AM - 6:00 PM</span>
-                </div>
-                
-                <div className="flex items-center space-x-3">
-                  <Users className="w-5 h-5 text-accent" />
-                  <span className="text-sm">Expected 1000+ Participants</span>
-                </div>
+          {/* COLLAGE / BANNER IMAGE BELOW MAP */}
+          <div className="relative overflow-hidden rounded-2xl mx-6 mb-0">
+            <img
+              src={VENUE.coverSrc}
+              alt={`${VENUE.title} campus`}
+              className="h-56 w-full object-cover sm:h-64"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4">
+              <h3 className="heading-section sm:text-xl">{VENUE.title}</h3>
+              <p className="caption text-white/85">{VENUE.subtitle}</p>
+            </div>
+          </div>
+
+          {/* Rest of the content */}
+          <div className="grid gap-6 p-6 sm:p-7">
+            {/* Venue Info */}
+            <div className="flex items-start gap-3">
+              <div className="grid h-11 w-11 place-items-center rounded-xl bg-emerald-400/15">
+                <MapPin className="h-5 w-5 text-emerald-400" />
               </div>
-            </motion.div>
-          </motion.div>
+              <div className="min-w-0">
+                <h4 className="heading-sub">Event Venue</h4>
+                <p className="caption text-emerald-300/90">{VENUE.event.name}</p>
+              </div>
+            </div>
 
-          {/* Right Side - Footer Content */}
-          <motion.div
-            className="space-y-8"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            {/* Venue Details */}
+            <ul className="grid gap-3 text-gray-200/90">
+              <li className="flex items-start gap-3">
+                <MapPin className="mt-0.5 h-4 w-4 text-emerald-300" />
+                <div className="text-sm">
+                  <p className="body-text text-white">{VENUE.address[0]}</p>
+                  <p>{VENUE.address[1]}</p>
+                  <p>{VENUE.address[2]}</p>
+                </div>
+              </li>
+              <li className="flex items-center gap-3">
+                <Calendar className="h-4 w-4 text-emerald-300" />
+                <span className="text-sm">{VENUE.event.dateRange}</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Clock className="h-4 w-4 text-emerald-300" />
+                <span className="text-sm">{VENUE.event.time}</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Users className="h-4 w-4 text-emerald-300" />
+                <span className="text-sm">Expected {VENUE.event.expected}</span>
+              </li>
+            </ul>
+          </div>
+        </motion.section>
+
+          {/* Right: Brand + Contact */}
+          <motion.section
+            {...fadeUp}
+            transition={{ duration: 0.5, delay: 0.05 }}
           >
-            {/* Brand Section */}
+            <div className="mb-6 flex items-center gap-3">
+              <div className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-indigo-500 to-emerald-400">
+                <Shield className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <h3 className="heading-hero leading-tight">
+                  Amrita CyberNation
+                </h3>
+                <p className="caption text-emerald-300/95">4th Edition</p>
+              </div>
+            </div>
+
+            <p className="mb-8 max-w-prose text-gray-300/95">
+              Empowering the next generation of cybersecurity professionals
+              through cutting-edge education, industry partnerships, and hands-on
+              learning experiences.
+            </p>
+
+            {/* Contact */}
             <div>
-              <motion.div
-                className="flex items-center space-x-3 mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center">
-                  <Shield className="w-7 h-7 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold">Amrita CyberNation</h3>
-                  <p className="text-accent font-semibold">4th Edition</p>
-                </div>
-              </motion.div>
-              
-              <motion.p
-                className="text-gray-300 mb-6 leading-relaxed"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                Empowering the next generation of cybersecurity professionals through 
-                cutting-edge education, industry partnerships, and hands-on learning experiences.
-              </motion.p>
-            </div>
-
-            {/* Quick Links & Contact */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-              {/* Quick Links */}
-              {/* <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                <h4 className="text-lg font-semibold mb-4 text-accent">Quick Links</h4>
-                <ul className="space-y-2">
-                  {quickLinks.map((link) => (
-                    <li key={link.name}>
-                      <motion.button
-                        onClick={() => scrollToSection(link.href)}
-                        className="text-gray-300 hover:text-accent transition-colors duration-300 text-sm flex items-center space-x-2 group"
-                        whileHover={{ x: 5 }}
-                      >
-                        <span className="w-1 h-1 bg-accent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        <span>{link.name}</span>
-                      </motion.button>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div> */}
-
-              {/* Contact Info */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-              >
-                <h4 className="text-lg font-semibold mb-4 text-accent">Contact Info</h4>
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-3">
-                    <Mail className="w-4 h-4 text-accent flex-shrink-0" />
-                    <span className="text-gray-300 text-sm">info@amritacybernation.com</span>
-                  </div>
-                  
-                  <div className="flex items-center space-x-3">
-                    <Phone className="w-4 h-4 text-accent flex-shrink-0" />
-                    <span className="text-gray-300 text-sm">+91 44 2747 9999</span>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Social Media & Newsletter */}
-            <div className="space-y-6">
-              {/* Social Media */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-              >
-                <h4 className="text-lg font-semibold mb-4 text-accent">Follow Us</h4>
-                <div className="flex space-x-4">
-                  {socialLinks.map((social) => (
-                    <motion.a
-                      key={social.label}
-                      href={social.href}
-                      className="w-12 h-12 bg-white/10 hover:bg-accent rounded-xl flex items-center justify-center transition-all duration-300 group"
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      aria-label={social.label}
+              <h4 className="heading-sub mb-4 tracking-wide text-emerald-300">
+                Contact
+              </h4>
+              <div className="grid gap-3 text-sm text-gray-300">
+                <a
+                  href="mailto:info@amritacybernation.com"
+                  className="inline-flex items-center gap-3 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
+                >
+                  <Mail className="h-4 w-4 text-emerald-300" />{" "}
+                  info@amritacybernation.com
+                </a>
+                <a
+                  href="tel:+914427479999"
+                  className="inline-flex items-center gap-3 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
+                >
+                  <Phone className="h-4 w-4 text-emerald-300" /> +91 44 2747
+                  9999
+                </a>
+                <div className="mt-2 flex items-center gap-4">
+                  {SOCIALS.map((s) => (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      aria-label={s.label}
+                      className="grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-white/5 transition hover:translate-y-[-2px] hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
                     >
-                      <social.icon className="w-5 h-5 text-white group-hover:text-gray-900 transition-colors duration-300" />
-                    </motion.a>
+                      <s.icon className="h-5 w-5" />
+                    </a>
                   ))}
                 </div>
-              </motion.div>
-
-              {/* Newsletter */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-              >
-                <h4 className="text-lg font-semibold mb-4 text-accent">Stay Updated</h4>
-                <div className="flex">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-l-xl focus:outline-none focus:ring-2 focus:ring-accent text-white placeholder-gray-400 text-sm backdrop-blur-sm"
-                  />
-                  <motion.button
-                    className="px-6 py-3 bg-gradient-to-r from-accent to-accent/80 text-gray-900 rounded-r-xl font-semibold hover:from-accent/90 hover:to-accent/70 transition-all duration-300 text-sm"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    Subscribe
-                  </motion.button>
-                </div>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
+          </motion.section>
         </div>
 
-        {/* Bottom Bar */}
+        {/* Bottom bar */}
         <motion.div
-          className="border-t border-white/10 mt-8 pt-8 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
+          {...fadeUp}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mt-10 border-t border-white/10 pt-6"
         >
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-gray-400 text-sm">
-              © 2024 Amrita CyberNation. All rights reserved.
-            </p>
-            <div className="flex space-x-6 text-sm">
-              <motion.span 
-                className="text-gray-400 hover:text-accent transition-colors duration-300 cursor-pointer"
-                whileHover={{ scale: 1.05 }}
-              >
+          <div className="flex flex-col items-center justify-between gap-4 text-center text-sm text-gray-400 md:flex-row">
+            <p>© {year} Amrita CyberNation. All rights reserved.</p>
+            <div className="flex flex-wrap items-center gap-5">
+              <a href="#privacy" className="transition hover:text-white">
                 Privacy Policy
-              </motion.span>
-              <motion.span 
-                className="text-gray-400 hover:text-accent transition-colors duration-300 cursor-pointer"
-                whileHover={{ scale: 1.05 }}
-              >
+              </a>
+              <a href="#terms" className="transition hover:text-white">
                 Terms of Service
-              </motion.span>
-              <motion.span 
-                className="text-gray-400 hover:text-accent transition-colors duration-300 cursor-pointer"
-                whileHover={{ scale: 1.05 }}
-              >
+              </a>
+              <a href="#conduct" className="transition hover:text-white">
                 Code of Conduct
-              </motion.span>
+              </a>
             </div>
           </div>
         </motion.div>
       </div>
+
+      {/* Back to top */}
+      <div className="pointer-events-none fixed bottom-6 right-6 z-50">
+        <motion.button
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          whileHover={{ y: -2 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() =>
+            window.scrollTo({ top: 0, behavior: "smooth" })
+          }
+          className="pointer-events-auto grid h-12 w-12 place-items-center rounded-full border border-white/10 bg-white/10 backdrop-blur text-white shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/60"
+          aria-label="Back to top"
+        >
+          <ArrowUp className="h-5 w-5" />
+        </motion.button>
+      </div>
     </footer>
   );
-};
-
-export default Footer;
+}

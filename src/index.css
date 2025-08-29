@@ -1,22 +1,55 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+/* Typography system */
+.heading-hero {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: clamp(2.5rem, 6vw, 4.5rem); /* 48-72px responsive */
+  line-height: 1.1;
+}
+.heading-section {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.25rem, 4vw, 3rem); /* 36-48px */
+  line-height: 1.15;
+}
+.heading-sub {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 2.5vw, 2rem); /* 24-32px */
+  line-height: 1.2;
+}
+.heading-minor {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: clamp(1.25rem, 2vw, 1.5rem); /* 20-24px */
+  line-height: 1.25;
+}
+.body-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 1rem; /* 16px */
+  line-height: 1.6;
+}
+.caption {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.4;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --primary: #b22049;
-  --secondary: #ffffff;
-  --accent: #c9a646;
-  --gray-50: #f9fafb;
-  --gray-100: #f3f4f6;
-  --gray-200: #e5e7eb;
-  --gray-300: #d1d5db;
-  --gray-400: #9ca3af;
-  --gray-500: #6b7280;
-  --gray-600: #4b5563;
-  --gray-700: #374151;
-  --gray-800: #1f2937;
-  --gray-900: #111827;
+  --primary: #0F172A; /* deepNavy */
+  --secondary: #1E40AF; /* royalBlue */
+  --accent: #D97706; /* elegantGold */
+  --success: #059669; /* emeraldGreen */
+  --background: #FFFFFF; /* pureWhite */
+  --background-alt: #F8FAFC; /* platinumGray */
+  --text-main: #374151; /* charcoal */
+  --text-strong: #111827; /* midnight */
 }
 
 * {
@@ -25,12 +58,14 @@
 
 html {
   scroll-behavior: smooth;
+  font-family: 'Inter', sans-serif;
 }
 
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   line-height: 1.6;
-  color: var(--gray-700);
+  color: var(--text-main);
+  background: var(--background);
   overflow-x: hidden;
 }
 
