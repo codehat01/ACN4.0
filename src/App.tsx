@@ -40,7 +40,7 @@ function App() {
     >
       <Navbar />
       <Hero />
-   { /* <GuestsCarousel /> */}
+      <GuestsCarousel />
       <About />
       <PreviousGuests />
       <Editions />
