@@ -133,7 +133,7 @@ const Navbar = () => {
                   <span>ACN 4TH EDITION</span>
                   <span>|</span>
                   <motion.button
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-bold hover:from-purple-600 hover:to-blue-600 transition-all duration-300"
+                    className="bg-[#b22049] text-white px-4 py-1 rounded-full text-sm font-bold hover:from-purple-600 hover:to-blue-600 transition-all duration-300"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -143,7 +143,7 @@ const Navbar = () => {
                   <span>ACN 4TH EDITION</span>
                   <span>|</span>
                   <motion.button
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-bold hover:from-purple-600 hover:to-blue-600 transition-all duration-300"
+                    className="bg-[#b22049] text-white px-4 py-1 rounded-full text-sm font-bold hover:from-purple-600 hover:to-blue-600 transition-all duration-300"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
