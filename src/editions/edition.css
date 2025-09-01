@@ -4,6 +4,29 @@
     box-sizing: border-box;
 }
 
+:root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+}
+
 body {
     font-family: "Signika", sans-serif;
     font-weight: 500;
@@ -49,8 +72,8 @@ html {
     html { scroll-behavior: auto; }
 }
 
-/* Loading Screen */
-#loading-screen {
+/* Edition Loading Screen */
+#edition-loading-screen {
     position: fixed;
     top: 0;
     left: 0;
@@ -64,7 +87,7 @@ html {
     z-index: 9999;
 }
 
-.loader {
+.edition-loader {
     border: 8px solid #f3f3f3;
     border-top: 8px solid #b22049;
     border-radius: 50%;
@@ -369,6 +392,30 @@ button.nav-link { background: transparent; border: none; cursor: pointer; }
     border-radius: 25px;
     overflow: hidden;
     background: white;
+    position: relative;
+}
+
+.box-body:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.box-body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(178, 32, 73, 0.05), rgba(30, 64, 175, 0.05));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    border-radius: 25px;
+}
+
+.box-body:hover::before {
+    opacity: 1;
 }
 
 .box-image {

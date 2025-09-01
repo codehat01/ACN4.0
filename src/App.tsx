@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import GuestsCarousel from "./components/GuestsCarousel";
@@ -13,6 +14,8 @@ import Loader from "./components/Preloader";
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     const root = document.documentElement;
@@ -24,7 +27,7 @@ function App() {
     };
   }, []);
 
-  if (loading) {
+  if (loading && isHomePage) {
     return <Loader onFinish={() => setLoading(false)} />;
   }
 

@@ -173,7 +173,7 @@ function Edition2024() {
       
       {isLoading && <LoadingScreen />}
       <noscript>
-        <style>{`#loading-screen{display:none!important}#main-content{display:block!important}`}</style>
+        <style>{`#edition-loading-screen{display:none!important}#main-content{display:block!important}`}</style>
       </noscript>
       
       <div id="main-content" role="main" style={{ display: isLoading ? 'none' : 'block' }}>
