@@ -240,8 +240,8 @@ const Navbar = () => {
                   onClick={() => handleNavigation(item)}
                   className={`relative font-medium font-roboto transition-all duration-300 px-4 py-2 rounded-full flex items-center space-x-1 ${
                     isScrolled
-                      ? 'text-white hover:text-white hover:bg-blue-600'
-                      : 'text-white hover:text-white hover:bg-blue-600'
+                      ? 'text-white hover:text-white hover:bg-custom-burgundy'
+                      : 'text-white hover:text-white hover:bg-custom-burgundy'
                   }`}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -269,7 +269,7 @@ const Navbar = () => {
                         <motion.button
                           key={subItem.name}
                           onClick={() => handleNavigation(subItem, true)}
-                          className="w-full text-left px-4 py-3 text-gray-300 hover:bg-blue-600 hover:text-white transition-colors duration-200 text-sm"
+                          className="w-full text-left px-4 py-3 text-gray-300 hover:bg-custom-burgundy hover:text-white transition-colors duration-200 text-sm"
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.05 }}

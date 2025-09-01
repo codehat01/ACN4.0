@@ -70,17 +70,11 @@ function Edition2023() {
       'https://firebasestorage.googleapis.com/v0/b/acn-2024-9779f.appspot.com/o/images%2Fd1.JPG?alt=media&token=a6c9cfc9-17c0-43a3-8613-42a0c92d8e60',
       'https://firebasestorage.googleapis.com/v0/b/acn-2024-9779f.appspot.com/o/images%2Fd2.JPG?alt=media&token=eda420f1-39f1-4098-91ed-67a07fcbba0c',
       'https://firebasestorage.googleapis.com/v0/b/acn-2024-9779f.appspot.com/o/images%2Fd4.JPG?alt=media&token=caa28805-5c9a-4bb9-a354-8ab3f3c46048',
-      'https://firebasestorage.googleapis.com/v0/b/acn-2024-9779f.appspot.com/o/images%2Fday5.JPG?alt=media&token=1c18ca54-1f0e-42ba-b6fe-87c1dc052889'
-      ]
-    },
-    {
-      id: 'panel2-slideshow-2023',
-      title: 'Box 2',
-      description: 'Panel2',
-      images: [
+      'https://firebasestorage.googleapis.com/v0/b/acn-2024-9779f.appspot.com/o/images%2Fday5.JPG?alt=media&token=1c18ca54-1f0e-42ba-b6fe-87c1dc052889',
         'https://firebasestorage.googleapis.com/v0/b/acn-2024-9779f.appspot.com/o/images%2Fday1.jpg?alt=media&token=446387e3-6cd2-434f-baa1-571f8528f697',
         'https://firebasestorage.googleapis.com/v0/b/acn-2024-9779f.appspot.com/o/images%2Fday2.JPG?alt=media&token=9fbbadb5-88ba-4eb0-acec-7464c651c5c6'
-      ]
+    
+    ]
     }
   ];
 
