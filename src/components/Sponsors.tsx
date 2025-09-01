@@ -109,7 +109,7 @@ const SponsorsWeaveMarquee = () => {
           <h2 className="mt-5 text-3xl sm:text-5xl font-extrabold text-white leading-tight">
             Our <span className="text-[var(--accent)]">Sponsors</span>
           </h2>
-          <p className="mt-3 text-sm sm:text-lg text-gray-300/90 max-w-3xl mx-auto">
+          <p className="mt-3 text-sm sm:text-lg text-black-300/90 max-w-3xl mx-auto">
             Collaborating with industry leaders to advance cybersecurity education and innovation.
           </p>
         </div>

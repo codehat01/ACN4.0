@@ -143,7 +143,7 @@ const Navbar = () => {
     <>
       {/* Scroll Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600 z-50 origin-left"
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-custom-burgundy to-purple-600 z-50 origin-left"
         style={{ scaleX: scrollProgress / 100 }}
         initial={{ scaleX: 0 }}
         animate={{ scaleX: scrollProgress / 100 }}
@@ -179,7 +179,7 @@ const Navbar = () => {
               <div className="relative">
                 <motion.div
                   className={`text-3xl font-bold transition-colors duration-300 ${
-                    isScrolled ? 'text-blue-400' : 'text-white'
+                    isScrolled ? 'text-custom-burgundy' : 'text-white'
                   }`}
                   style={{ height: '75px', display: 'flex', alignItems: 'center' }}
                 >
@@ -208,7 +208,7 @@ const Navbar = () => {
                   <span>ACN 4TH EDITION</span>
                   <span>|</span>
                   <motion.button
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-bold hover:from-purple-600 hover:to-blue-600 transition-all duration-300"
+                    className="bg-gradient-to-r bg-custom-burgundy text-white px-4 py-1 rounded-full text-sm font-bold hover:from-purple-600 hover:to-custom-burgundy transition-all duration-300"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -218,7 +218,7 @@ const Navbar = () => {
                   <span>ACN 4TH EDITION</span>
                   <span>|</span>
                   <motion.button
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-bold hover:from-purple-600 hover:to-blue-600 transition-all duration-300"
+                    className="bg-gradient-to-r bg-custom-burgundy text-white px-4 py-1 rounded-full text-sm font-bold hover:from-purple-600 hover:to-custom-burgundy transition-all duration-300"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -241,8 +241,8 @@ const Navbar = () => {
                     onClick={() => handleNavigation(item)}
                     className={`relative font-medium transition-all duration-300 px-4 py-2 rounded-full flex items-center space-x-1 ${
                       isScrolled
-                        ? 'text-white hover:text-white hover:bg-blue-600'
-                        : 'text-white hover:text-white hover:bg-blue-600'
+                        ? 'text-white hover:text-white hover:bg-custom-burgundy'
+                        : 'text-white hover:text-white hover:bg-custom-burgundy'
                     }`}
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -270,7 +270,7 @@ const Navbar = () => {
                           <motion.button
                             key={subItem.name}
                             onClick={() => handleNavigation(subItem, true)}
-                            className="w-full text-left px-4 py-3 text-gray-300 hover:bg-blue-600 hover:text-white transition-colors duration-200 text-sm"
+                            className="w-full text-left px-4 py-3 text-gray-300 hover:bg-custom-burgundy hover:text-white transition-colors duration-200 text-sm"
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.05 }}

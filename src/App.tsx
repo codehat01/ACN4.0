@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import GuestsCarousel from "./components/GuestsCarousel";
+//import GuestsCarousel from "./components/GuestsCarousel";
 import About from "./components/About";
 import PreviousGuests from "./components/PreviousGuests";
 import Editions from "./components/Editions";
@@ -40,7 +40,7 @@ function App() {
     >
       <Navbar />
       <Hero />
-      <GuestsCarousel />
+   { /* <GuestsCarousel /> */}
       <About />
       <PreviousGuests />
       <Editions />

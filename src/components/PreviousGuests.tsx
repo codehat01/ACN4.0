@@ -177,7 +177,7 @@ const GalleryAnimation: React.FC<GalleryAnimationProps> = ({
                 }}
               >
                 <img
-                  className="image object-cover rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.15)] transition-all duration-[0.4s] select-none pointer-events-auto bg-[#222] hover:scale-[1.08] hover:rotate-[-2deg] hover:shadow-[0_8px_32px_rgba(178,32,73,0.25)] hover:z-[2]"
+                  className="image object-cover rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.15)] transition-all duration-[0.4s] select-none pointer-events-auto bg-[#222] hover:scale-[1] hover:shadow-[0_8px_32px_rgba(178,32,73,0.25)] hover:z-[1]"
                   style={{
                     width: typeof imageWidth === 'number' ? `${imageWidth}px` : imageWidth,
                     height: typeof imageHeight === 'number' ? `${imageHeight}px` : imageHeight,

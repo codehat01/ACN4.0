@@ -138,7 +138,7 @@ const Editions: React.FC = () => {
   const timelinePath = 'M 400 0 Q 200 200 400 400 Q 600 600 400 800 Q 200 1000 400 1200';
 
   return (
-  <section className="py-20 bg-gradient-to-br from-platinumGray to-royalBlue overflow-hidden">
+    <section className="py-20 bg-white overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-20"
@@ -195,14 +195,14 @@ const Editions: React.FC = () => {
                   transition={{ type: 'spring', stiffness: 300 }}
                 >
                   <div
-                    className="bg-white/80 backdrop-blur-sm border border-white/20 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer group"
+                    className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer group"
                     onClick={() => setSelectedEdition(index)}
                   >
                     <motion.div className={`inline-flex items-center px-6 py-2 rounded-full text-white font-bold text-sm mb-4 bg-gradient-to-r ${edition.color} shadow-lg`} whileHover={{ scale: 1.05 }}>
                       {edition.year}
                     </motion.div>
 
-                    <h3 className="text-2xl lg:text-3xl font-bold text-slate-800 mb-4 group-hover:text-blue-600 transition-colors duration-300">{edition.title}</h3>
+                    <h3 className="text-2xl lg:text-3xl font-bold text-slate-800 mb-4 group-hover:text-custom-burgundy transition-colors duration-300">{edition.title}</h3>
                     <p className="text-slate-600 mb-6 leading-relaxed">{edition.description}</p>
 
                     <div className="flex flex-wrap gap-6 mb-6">
@@ -226,7 +226,7 @@ const Editions: React.FC = () => {
                       </div>
                     </div>
 
-                    <motion.button className="flex items-center space-x-2 text-blue-600 font-semibold group-hover:text-purple-600 transition-colors duration-300" whileHover={{ x: 5 }}>
+                    <motion.button className="flex items-center space-x-2 text-custom-burgundy font-semibold group-hover:text-purple-600 transition-colors duration-300" whileHover={{ x: 5 }}>
                       <span>Explore Details</span>
                       <ChevronRight className="w-4 h-4" />
                     </motion.button>

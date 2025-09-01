@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        'custom-burgundy': '#b22049',
     deepNavy: '#0F172A', // Main brand, headers, navigation
     royalBlue: '#1E40AF', // Links, buttons, accents
     elegantGold: '#D97706', // Premium accents, highlights

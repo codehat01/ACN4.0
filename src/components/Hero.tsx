@@ -51,7 +51,7 @@ const Hero = () => {
       year: "2025",
       hasCountdown: true
     },
-    {
+   /* {
       id: 5,
       title: "2025 Distinguished Guests",
       subtitle: "Industry Leaders",
@@ -59,7 +59,7 @@ const Hero = () => {
       image: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg",
       duration: 10000,
       hasGuests: true
-    }
+    }*/
   ];
 
   const guests2024 = [
@@ -255,7 +255,7 @@ const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
+                <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-custom-burgundy" />
                 <span className="text-sm sm:text-base text-white font-semibold">{slides[currentSlide].year}</span>
               </motion.div>
 
@@ -271,7 +271,7 @@ const Hero = () => {
 
               {/* Subtitle */}
               <motion.h2
-                className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-blue-400 font-semibold mb-3 sm:mb-4 px-2"
+                className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-custom-burgundy font-semibold mb-3 sm:mb-4 px-2"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
@@ -298,7 +298,7 @@ const Hero = () => {
                   transition={{ duration: 0.6, delay: 0.9 }}
                 >
                   <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-3 sm:p-4 w-full max-w-2xl mx-auto">
-                    <h3 className="text-blue-400 text-base sm:text-lg font-semibold mb-3 sm:mb-4">Event Countdown</h3>
+                    <h3 className="text-custom-burgundy text-base sm:text-lg font-semibold mb-3 sm:mb-4">Event Countdown</h3>
                     <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-4">
                       {[
                         { label: 'Months', value: timeLeft.months },
@@ -316,7 +316,7 @@ const Hero = () => {
                           <div className="text-lg sm:text-xl md:text-2xl font-bold text-white">
                             {item.value.toString().padStart(2, '0')}
                           </div>
-                          <div className="text-blue-400 text-xs sm:text-sm">{item.label}</div>
+                          <div className="text-custom-burgundy text-xs sm:text-sm">{item.label}</div>
                         </motion.div>
                       ))}
                     </div>
@@ -324,7 +324,7 @@ const Hero = () => {
                 </motion.div>
               )}
 
-              {/* Guest Cards for guest slides */}
+              {/* Guest Cards for guest slides 
               {slides[currentSlide].hasGuests && (
                 <motion.div
                   className="mb-8"
@@ -364,7 +364,7 @@ const Hero = () => {
                     ))}
                   </div>
                 </motion.div>
-              )}
+              )}*/}
 
               {/* Action Buttons */}
               <motion.div
@@ -427,7 +427,7 @@ const Hero = () => {
               onClick={() => goToSlide(index)}
               className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full transition-all duration-300 ${
                 currentSlide === index 
-                  ? 'bg-blue-400 scale-125' 
+                  ? 'bg-custom-burgundy scale-125' 
                   : 'bg-white/50 hover:bg-white/70'
               }`}
               whileHover={{ scale: 1.2 }}
@@ -441,7 +441,7 @@ const Hero = () => {
       {/* Slide Progress Bar */}
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20 z-30">
         <motion.div
-          className="h-full bg-blue-400"
+          className="h-full bg-custom-burgundy"
           initial={{ width: '0%' }}
           animate={{ width: '100%' }}
           transition={{ 
