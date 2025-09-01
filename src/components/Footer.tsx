@@ -39,8 +39,6 @@ const SOCIALS = [
 ];
 
 const VENUE = {
-  title: "Amrita Vishwa Vidyapeetham",
-  subtitle: "Chennai Campus",
   address: [
     "Amrita Vishwa Vidyapeetham",
     "Vengal Village, Chennai - 601103",
