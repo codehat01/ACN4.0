@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, ChevronUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+// Import logo using URL constructor
+const logo = new URL('../../images/Amrita_CyberNation_Logo.png', import.meta.url).href;
 
 interface NavItem {
   name: string;
@@ -165,14 +167,21 @@ const Navbar = () => {
             <div className="relative">
               <motion.div
                 className="transition-all duration-300"
-                style={{ height: '75px', display: 'flex', alignItems: 'center' }}
+                style={{ height: '85px', display: 'flex', alignItems: 'center' }}
               >
                 <img 
-                  src="/images/Amrita_CyberNation_Logo___1-removebg-preview (1).png"
+                  src={logo}
                   alt="ACN Logo"
-                  className={`h-12 w-auto transition-opacity duration-300 ${
+                  onError={(e) => {
+                    console.error('Error loading logo:', e);
+                    const imgElement = e.target as HTMLImageElement;
+                    console.log('Attempted logo URL:', imgElement.src);
+                  }}
+                  onLoad={() => console.log('Logo loaded successfully')}
+                  className={`h-16 w-auto transition-opacity duration-300 ${
                     isScrolled ? 'opacity-90' : 'opacity-100'
-                  }`}
+                  } max-w-none`}
+                  style={{ minWidth: '64px', objectFit: 'contain' }}
                 />
               </motion.div>
             </div>
