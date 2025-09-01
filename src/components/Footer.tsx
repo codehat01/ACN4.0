@@ -205,7 +205,16 @@ export default function Footer() {
           <div className="grid gap-6 p-6 sm:p-7">
             {/* Venue Info */}
             <div className="flex items-start gap-3">
-                          {/* Venue Details */}
+              <div className="grid h-11 w-11 place-items-center rounded-xl bg-emerald-400/15">
+                <MapPin className="h-5 w-5 text-emerald-400" />
+              </div>
+              <div className="min-w-0">
+                <h4 className="heading-sub">Event Venue</h4>
+                <p className="caption text-emerald-300/90">{VENUE.event.name}</p>
+              </div>
+            </div>
+
+            {/* Venue Details */}
             <ul className="grid gap-3 text-gray-200/90">
               <li className="flex items-start gap-3">
                 <MapPin className="mt-0.5 h-4 w-4 text-emerald-300" />
@@ -228,7 +237,6 @@ export default function Footer() {
                 <span className="text-sm">Expected {VENUE.event.expected}</span>
               </li>
             </ul>
-            </div>
           </div>
         </motion.section>
 

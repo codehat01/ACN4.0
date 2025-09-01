@@ -194,14 +194,15 @@ img {
   }
 }
 
-/* Hide scrollbar and prevent overflow on mobile */
+/* Hide scrollbar and prevent overflow on mobile – applies only when body has .home-no-xoverflow */
 @media (max-width: 768px) {
-  html, body {
+  html.home-no-xoverflow {
     overflow-x: hidden !important;
     overflow-y: auto !important;
+    -ms-overflow-style: none; /* IE & Edge */
     scrollbar-width: none; /* Firefox */
   }
-  body::-webkit-scrollbar {
+  body.home-no-xoverflow::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera */
   }
 }

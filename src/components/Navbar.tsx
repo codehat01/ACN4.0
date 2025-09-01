@@ -1,6 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
+interface NavItem {
+  name: string;
+  path: string;
+  onClick: () => void;
+  dropdown?: Array<{ name: string; path: string }>;
+}
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,45 +31,112 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = [
-    { name: 'Home', href: '#home' },
+  const navigate = useNavigate();
+  const isEditionsPage = window.location.pathname.includes('/editions');
+
+  const navItems: NavItem[] = [
     { 
-      name: 'Events 3.0', 
-      href: '#events',
+      name: 'Home', 
+      path: '/',
+      onClick: () => navigate('/')
+    },
+    { 
+      name: 'Events 4.0', 
+      path: '#events',
+      onClick: () => {
+        if (!isEditionsPage) {
+          const element = document.querySelector('#events');
+          if (element) element.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          navigate('/#events');
+        }
+      },
       dropdown: [
-        'Keynote Sessions',
-        'Technical Workshops',
-        'Panel Discussions',
-        'Networking Events',
-        'Certification Programs'
+        { name: 'Keynote Sessions', path: '/events#keynote' },
+        { name: 'Technical Workshops', path: '/events#workshops' },
+        { name: 'Panel Discussions', path: '/events#panels' },
+        { name: 'Networking Events', path: '/events#networking' },
+        { name: 'Certification Programs', path: '/events#certification' }
       ]
     },
     { 
       name: 'Editions', 
-      href: '#editions',
-      dropdown: ['2022', '2023']
+      path: '/editions',
+      onClick: () => navigate('/editions'),
+      dropdown: [
+        { name: '2024', path: '/editions/2024' },
+        { name: '2023', path: '/editions/2023' },
+        { name: '2022', path: '/editions/2022' }
+      ]
     },
-    { name: 'Sponsors', href: '#sponsors' },
+    { 
+      name: 'Sponsors', 
+      path: '#sponsors',
+      onClick: () => {
+        if (!isEditionsPage) {
+          const element = document.querySelector('#sponsors');
+          if (element) element.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          navigate('/#sponsors');
+        }
+      }
+    },
     { 
       name: 'Gallery', 
-      href: '#gallery',
-      dropdown: ['2022 Gallery', '2023 Gallery', '2024 Gallery']
+      path: '#gallery',
+      onClick: () => {
+        if (!isEditionsPage) {
+          const element = document.querySelector('#gallery');
+          if (element) element.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          navigate('/#gallery');
+        }
+      },
+      dropdown: [
+        { name: '2024 Gallery', path: '/gallery/2024' },
+        { name: '2023 Gallery', path: '/gallery/2023' },
+        { name: '2022 Gallery', path: '/gallery/2022' }
+      ]
     },
-    { name: 'Team', href: '#team' }
+    { 
+      name: 'Team', 
+      path: '#team',
+      onClick: () => {
+        if (!isEditionsPage) {
+          const element = document.querySelector('#team');
+          if (element) element.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          navigate('/#team');
+        }
+      }
+    }
   ];
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const handleNavigation = (item: NavItem | { name: string; path: string; onClick?: () => void }, isDropdownItem = false) => {
+    if ('onClick' in item && item.onClick) {
+      item.onClick();
+    } else if (item.path) {
+      if (item.path.startsWith('http')) {
+        window.open(item.path, '_blank');
+      } else {
+        navigate(item.path);
+      }
     }
-    setIsMobileMenuOpen(false);
-    setActiveDropdown(null);
-    setActiveMobileDropdown(null);
+    
+    if (!isDropdownItem) {
+      setIsMobileMenuOpen(false);
+      setActiveDropdown(null);
+      setActiveMobileDropdown(null);
+    }
   };
 
   const toggleMobileDropdown = (itemName: string) => {
     setActiveMobileDropdown(prev => prev === itemName ? null : itemName);
+  };
+
+  // Type guard to check if an item has dropdown
+  const hasDropdown = (item: NavItem): item is NavItem & { dropdown: Array<{ name: string; path: string }> } => {
+    return Array.isArray(item.dropdown) && item.dropdown.length > 0;
   };
 
   return (
@@ -133,7 +208,7 @@ const Navbar = () => {
                   <span>ACN 4TH EDITION</span>
                   <span>|</span>
                   <motion.button
-                    className="bg-[#b22049] text-white px-4 py-1 rounded-full text-sm font-bold hover:from-purple-600 hover:to-blue-600 transition-all duration-300"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-bold hover:from-purple-600 hover:to-blue-600 transition-all duration-300"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -143,7 +218,7 @@ const Navbar = () => {
                   <span>ACN 4TH EDITION</span>
                   <span>|</span>
                   <motion.button
-                    className="bg-[#b22049] text-white px-4 py-1 rounded-full text-sm font-bold hover:from-purple-600 hover:to-blue-600 transition-all duration-300"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-bold hover:from-purple-600 hover:to-blue-600 transition-all duration-300"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -155,7 +230,7 @@ const Navbar = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-6">
-              {navItems.map((item, index) => (
+              {navItems.map((item) => (
                 <div
                   key={item.name}
                   className="relative"
@@ -163,7 +238,7 @@ const Navbar = () => {
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
                   <motion.button
-                    onClick={() => scrollToSection(item.href)}
+                    onClick={() => handleNavigation(item)}
                     className={`relative font-medium transition-all duration-300 px-4 py-2 rounded-full flex items-center space-x-1 ${
                       isScrolled
                         ? 'text-white hover:text-white hover:bg-blue-600'
@@ -171,16 +246,19 @@ const Navbar = () => {
                     }`}
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 + 0.2 }}
+                    transition={{ delay: 0.2 }}
                     whileHover={{ scale: 1.05 }}
                   >
-                    <span>{item.name}</span>
-                    {item.dropdown && <ChevronDown className="w-4 h-4" />}
+                    <span className="whitespace-nowrap">{item.name}</span>
+                    {hasDropdown(item) && (activeDropdown === item.name ? 
+                      <ChevronUp className="w-4 h-4" /> : 
+                      <ChevronDown className="w-4 h-4" />
+                    )}
                   </motion.button>
 
                   {/* Dropdown Menu */}
                   <AnimatePresence>
-                    {item.dropdown && activeDropdown === item.name && (
+                    {hasDropdown(item) && activeDropdown === item.name && (
                       <motion.div
                         className="absolute top-full left-0 mt-2 w-48 bg-black/95 backdrop-blur-md rounded-xl shadow-2xl border border-gray-700 overflow-hidden z-50"
                         initial={{ opacity: 0, y: -10, scale: 0.95 }}
@@ -188,16 +266,17 @@ const Navbar = () => {
                         exit={{ opacity: 0, y: -10, scale: 0.95 }}
                         transition={{ duration: 0.2 }}
                       >
-                        {item.dropdown.map((subItem, subIndex) => (
+                        {item.dropdown.map((subItem) => (
                           <motion.button
-                            key={subItem}
+                            key={subItem.name}
+                            onClick={() => handleNavigation(subItem, true)}
                             className="w-full text-left px-4 py-3 text-gray-300 hover:bg-blue-600 hover:text-white transition-colors duration-200 text-sm"
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: subIndex * 0.05 }}
+                            transition={{ delay: 0.05 }}
                             whileHover={{ x: 5 }}
                           >
-                            {subItem}
+                            {subItem.name}
                           </motion.button>
                         ))}
                       </motion.div>
@@ -255,78 +334,51 @@ const Navbar = () => {
               transition={{ duration: 0.3 }}
             >
               <div className="px-4 py-6 space-y-2">
-                {navItems.map((item, index) => (
+                {navItems.map((item) => (
                   <div key={item.name}>
-                    <div className="flex items-center justify-between">
-                      <motion.button
-                        onClick={() => scrollToSection(item.href)}
-                        className="flex-1 text-left py-3 px-4 text-gray-300 hover:text-white hover:bg-blue-600 rounded-lg transition-colors duration-300 font-medium"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        whileTap={{ scale: 0.98 }}
+                    {item.dropdown ? (
+                      <div>
+                        <button
+                          onClick={() => toggleMobileDropdown(item.name)}
+                          className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-800"
+                        >
+                          <span className="whitespace-nowrap">{item.name}</span>
+                          {activeMobileDropdown === item.name ? (
+                            <ChevronUp className="w-4 h-4" />
+                          ) : (
+                            <ChevronDown className="w-4 h-4" />
+                          )}
+                        </button>
+                        
+                        <AnimatePresence>
+                          {activeMobileDropdown === item.name && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: 'auto' }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="overflow-hidden pl-6"
+                            >
+                              {item.dropdown.map((subItem) => (
+                                <button
+                                  key={subItem.name}
+                                  onClick={() => handleNavigation(subItem, true)}
+                                  className="w-full text-left py-2 px-4 text-sm hover:bg-gray-800"
+                                >
+                                  {subItem.name}
+                                </button>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => handleNavigation(item)}
+                        className="w-full text-left py-3 px-4 hover:bg-gray-800"
                       >
                         {item.name}
-                      </motion.button>
-                      
-                      {/* Mobile Dropdown Toggle */}
-                      {item.dropdown && (
-                        <motion.button
-                          onClick={() => toggleMobileDropdown(item.name)}
-                          className="p-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors duration-300"
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <AnimatePresence mode="wait">
-                            {activeMobileDropdown === item.name ? (
-                              <motion.div
-                                key="up"
-                                initial={{ rotate: -180 }}
-                                animate={{ rotate: 0 }}
-                                exit={{ rotate: 180 }}
-                                transition={{ duration: 0.2 }}
-                              >
-                                <ChevronUp className="w-4 h-4" />
-                              </motion.div>
-                            ) : (
-                              <motion.div
-                                key="down"
-                                initial={{ rotate: 180 }}
-                                animate={{ rotate: 0 }}
-                                exit={{ rotate: -180 }}
-                                transition={{ duration: 0.2 }}
-                              >
-                                <ChevronDown className="w-4 h-4" />
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </motion.button>
-                      )}
-                    </div>
-                    
-                    {/* Mobile Dropdown Content */}
-                    <AnimatePresence>
-                      {item.dropdown && activeMobileDropdown === item.name && (
-                        <motion.div
-                          className="ml-4 mt-2 space-y-1 overflow-hidden"
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          {item.dropdown.map((subItem, subIndex) => (
-                            <motion.button
-                              key={subItem}
-                              className="block w-full text-left py-2 px-4 text-sm text-gray-400 hover:text-blue-400 hover:bg-gray-800 rounded-lg transition-colors duration-200"
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: subIndex * 0.05 }}
-                            >
-                              {subItem}
-                            </motion.button>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                      </button>
+                    )}
                   </div>
                 ))}
               </div>

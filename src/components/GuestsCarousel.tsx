@@ -130,10 +130,10 @@ const GuestsCarousel = () => {
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-<h2 className="text-[clamp(2.5rem,6vw,4.5rem)] font-black font-[Poppins,sans-serif] text-transparent bg-clip-text bg-[#b22049]">
-  Distinguished Guests 2025
-</h2>
-        <p className="body-text text-black-300 max-w-2xl mx-auto">
+        <h2 className="text-[clamp(2.5rem,6vw,4.5rem)] font-black font-[Poppins,sans-serif] text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-pink-500 to-purple-400 drop-shadow-xl mb-4">
+          Distinguished Guests 2025
+        </h2>
+        <p className="body-text text-gray-300 max-w-2xl mx-auto">
           An exclusive showcase of visionaries shaping the future of technology.
         </p>
       </motion.div>
@@ -160,7 +160,7 @@ const GuestsCarousel = () => {
           stretch: 0,
           depth: 250,
           modifier: 1.2,
-          slideShadows: false,
+          slideShadows: true,
         }}
         breakpoints={{
           320: { slidesPerView: 1, spaceBetween: 15 },

@@ -15,9 +15,12 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.documentElement.style.scrollBehavior = "smooth";
+    const root = document.documentElement;
+    root.style.scrollBehavior = "smooth";
+    root.classList.add("home-no-xoverflow");
     return () => {
-      document.documentElement.style.scrollBehavior = "auto";
+      root.style.scrollBehavior = "auto";
+      root.classList.remove("home-no-xoverflow");
     };
   }, []);
 
