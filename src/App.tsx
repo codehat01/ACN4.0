@@ -40,7 +40,6 @@ function App() {
     >
       <Navbar />
       <Hero />
-      <GuestsCarousel />
       <About />
       <PreviousGuests />
       <Editions />
