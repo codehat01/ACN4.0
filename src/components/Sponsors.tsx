@@ -103,10 +103,10 @@ const SponsorsWeaveMarquee = () => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 sm:mb-14">
-          <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm tracking-wide text-[var(--accent)] font-semibold backdrop-blur">
+          <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm tracking-wide text-[var(--accent)] font-semibold font-roboto backdrop-blur">
             Powered By
           </span>
-          <h2 className="mt-5 text-3xl sm:text-5xl font-extrabold text-white leading-tight">
+          <h2 className="mt-5 text-3xl sm:text-5xl font-extrabold font-roboto text-white leading-tight">
             Our <span className="text-[var(--accent)]">Sponsors</span>
           </h2>
           <p className="mt-3 text-sm sm:text-lg text-black-300/90 max-w-3xl mx-auto">
@@ -125,7 +125,7 @@ const SponsorsWeaveMarquee = () => {
         {/* CTA (optional) */}
         <div className="text-center mt-12 sm:mt-16">
           <button
-            className="px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-semibold text-gray-900 bg-[var(--accent)] hover:bg-[#8d1034] active:bg-[#780d2c] transition-colors shadow-[0_8px_24px_rgba(163,19,63,0.45)]"
+            className="px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-semibold font-roboto text-gray-900 bg-[var(--accent)] hover:bg-[#8d1034] active:bg-[#780d2c] transition-colors shadow-[0_8px_24px_rgba(163,19,63,0.45)]"
             aria-label="Become a Partner"
           >
             All Partner's

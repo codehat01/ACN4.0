@@ -130,7 +130,7 @@ const GuestsCarousel = () => {
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <h2 className="text-[clamp(2.5rem,6vw,4.5rem)] font-black font-[Poppins,sans-serif] text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-pink-500 to-purple-400 drop-shadow-xl mb-4">
+  <h2 className="text-[clamp(2.5rem,6vw,4.5rem)] font-black font-roboto text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-pink-500 to-purple-400 drop-shadow-xl mb-4">
           Distinguished Guests 2025
         </h2>
         <p className="body-text text-gray-300 max-w-2xl mx-auto">
@@ -216,7 +216,7 @@ const GuestsCarousel = () => {
                         "
                       >
                         {/* Name (single line, centered) */}
-                        <h3 className="truncate font-semibold text-[15px] md:text-base text-white leading-tight">
+                        <h3 className="truncate font-semibold font-roboto text-[15px] md:text-base text-white leading-tight">
                           {guest.name}
                         </h3>
 

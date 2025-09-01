@@ -146,7 +146,7 @@ export default function Footer() {
                     href={VENUE.mapUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
+                    className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium font-roboto text-white transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
                   >
                     Open in Maps <ExternalLink className="h-3.5 w-3.5" />
                   </a>
@@ -158,7 +158,7 @@ export default function Footer() {
                         navigator.clipboard.writeText(text);
                       }
                     }}
-                    className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-transparent px-3 py-1.5 text-xs font-medium text-gray-200 transition hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
+                    className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-transparent px-3 py-1.5 text-xs font-medium font-roboto text-gray-200 transition hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
                     aria-label="Copy venue address"
                   >
                     <Copy className="h-3.5 w-3.5" /> Copy
@@ -235,7 +235,7 @@ export default function Footer() {
             <div className="mb-6 flex items-center gap-3">
 
               <div>
-                <h3 className="text-2xl font-bold leading-tight">
+                <h3 className="text-2xl font-bold font-roboto leading-tight">
                   Amrita CyberNation
                 </h3>
                 <p className="text-sm text-emerald-300/95">4th Edition</p>
@@ -250,7 +250,7 @@ export default function Footer() {
 
             {/* Contact */}
             <div>
-              <h4 className="text-lg font-semibold mb-4 tracking-wide text-emerald-300">
+              <h4 className="text-lg font-semibold font-roboto mb-4 tracking-wide text-emerald-300">
                 Contact
               </h4>
               <div className="grid gap-3 text-sm text-gray-300">

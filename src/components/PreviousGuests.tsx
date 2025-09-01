@@ -146,7 +146,7 @@ const GalleryAnimation: React.FC<GalleryAnimationProps> = ({
       <div className="w-full max-w-7xl">
         {/* Header */}
         <div className="text-center mb-6">
-          <h1 className="text-3xl md:text-5xl font-bold tracking-wider mb-4 bg-gradient-to-r from-[#b22049] to-[#e63965] bg-clip-text text-transparent">
+          <h1 className="text-3xl md:text-5xl font-bold font-roboto tracking-wider mb-4 bg-gradient-to-r from-[#b22049] to-[#e63965] bg-clip-text text-transparent">
             GALLERY
           </h1>
           <p className="text-gray-600 text-sm md:text-base max-w-2xl mx-auto">
@@ -187,10 +187,10 @@ const GalleryAnimation: React.FC<GalleryAnimationProps> = ({
                   alt={guest.name}
                   draggable={false}
                 />
-                <span className="mt-2 text-black text-sm md:text-base font-semibold text-center truncate w-full">
+                <span className="mt-2 text-black text-sm md:text-base font-semibold font-roboto text-center truncate w-full">
                   {guest.name}
                 </span>
-                <span className="text-gray-600 text-xs md:text-sm font-medium text-center truncate w-full">
+                <span className="text-gray-600 text-xs md:text-sm font-medium font-roboto text-center truncate w-full">
                   {guest.designation}
                 </span>
               </div>
@@ -202,7 +202,7 @@ const GalleryAnimation: React.FC<GalleryAnimationProps> = ({
         <div className="flex justify-center mt-6 md:mt-10">
           <a
             href="/gallery/gallery.html"
-            className="px-6 py-3 bg-gradient-to-r from-[#b22049] to-[#e63965] text-white rounded-full font-semibold hover:scale-105 hover:shadow-lg transition-transform"
+            className="px-6 py-3 bg-gradient-to-r from-[#b22049] to-[#e63965] text-white rounded-full font-semibold font-roboto hover:scale-105 hover:shadow-lg transition-transform"
           >
             View Full Gallery
           </a>

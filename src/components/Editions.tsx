@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useInView, AnimatePresence, useScroll, useMotionValue, MotionValue } from 'framer-motion';
-import { Calendar, Users, Award, X, ChevronRight } from 'lucide-react';
+import { motion, useInView, useScroll, useMotionValue, MotionValue } from 'framer-motion';
+import { Calendar, Users, ChevronRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface PathFollowerProps {
   d: string;
@@ -80,9 +81,11 @@ interface Edition {
   highlights: string[];
   color: string;
   position: string;
+  path: string;
 }
 
 const Editions: React.FC = () => {
+  const navigate = useNavigate();
   const editions: Edition[] = [
     {
       year: '2022',
@@ -92,7 +95,8 @@ const Editions: React.FC = () => {
       description: 'The inaugural edition focused on foundational cybersecurity awareness and introduced students to the evolving threat landscape.',
       highlights: ['Industry Expert Talks', 'Hands-on Workshops', 'Networking Sessions', 'Security Challenges'],
       color: 'from-blue-500 to-blue-600',
-      position: 'left'
+      position: 'left',
+      path: '/editions/2022'
     },
     {
       year: '2023',
@@ -102,7 +106,8 @@ const Editions: React.FC = () => {
       description: 'Building on our success, the second edition expanded to include advanced topics and international speakers.',
       highlights: ['Global Speaker Panel', 'Advanced Workshops', 'Hackathon Competition', 'Industry Partnerships'],
       color: 'from-purple-500 to-purple-600',
-      position: 'right'
+      position: 'right',
+      path: '/editions/2023'
     },
     {
       year: '2024',
@@ -112,11 +117,11 @@ const Editions: React.FC = () => {
       description: 'Our biggest edition yet, featuring cutting-edge AI security topics, quantum cryptography, and next-generation threat detection.',
       highlights: ['AI Security Summit', 'Quantum Cryptography Workshop', 'Bug Bounty Competition', 'Global Security Forum'],
       color: 'from-indigo-500 to-indigo-600',
-      position: 'left'
+      position: 'left',
+      path: '/editions/2024'
     }
   ];
 
-  const [selectedEdition, setSelectedEdition] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: '-100px' });
   const [visibleItems, setVisibleItems] = useState(0);
@@ -147,7 +152,7 @@ const Editions: React.FC = () => {
           transition={{ duration: 0.8 }}
         >
           <motion.h2
-            className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent mb-6"
+            className="text-5xl md:text-6xl font-bold font-roboto bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent mb-6"
             animate={isInView ? { scale: [0.9, 1.05, 1] } : {}}
             transition={{ duration: 1.2, ease: 'easeOut' }}
           >
@@ -196,13 +201,13 @@ const Editions: React.FC = () => {
                 >
                   <div
                     className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer group"
-                    onClick={() => setSelectedEdition(index)}
+                    onClick={() => navigate(editions[index].path)}
                   >
-                    <motion.div className={`inline-flex items-center px-6 py-2 rounded-full text-white font-bold text-sm mb-4 bg-gradient-to-r ${edition.color} shadow-lg`} whileHover={{ scale: 1.05 }}>
+                    <motion.div className={`inline-flex items-center px-6 py-2 rounded-full text-white font-bold font-roboto text-sm mb-4 bg-gradient-to-r ${edition.color} shadow-lg`} whileHover={{ scale: 1.05 }}>
                       {edition.year}
                     </motion.div>
 
-                    <h3 className="text-2xl lg:text-3xl font-bold text-slate-800 mb-4 group-hover:text-custom-burgundy transition-colors duration-300">{edition.title}</h3>
+                    <h3 className="text-2xl lg:text-3xl font-bold font-roboto text-slate-800 mb-4 group-hover:text-custom-burgundy transition-colors duration-300">{edition.title}</h3>
                     <p className="text-slate-600 mb-6 leading-relaxed">{edition.description}</p>
 
                     <div className="flex flex-wrap gap-6 mb-6">
@@ -212,7 +217,7 @@ const Editions: React.FC = () => {
                         </div>
                         <div>
                           <div className="text-sm text-slate-500">Participants</div>
-                          <div className="font-bold text-slate-800">{edition.participants}</div>
+                          <div className="font-bold font-roboto text-slate-800">{edition.participants}</div>
                         </div>
                       </div>
                       <div className="flex items-center space-x-2">
@@ -221,12 +226,12 @@ const Editions: React.FC = () => {
                         </div>
                         <div>
                           <div className="text-sm text-slate-500">Sessions</div>
-                          <div className="font-bold text-slate-800">{edition.sessions}</div>
+                          <div className="font-bold font-roboto text-slate-800">{edition.sessions}</div>
                         </div>
                       </div>
                     </div>
 
-                    <motion.button className="flex items-center space-x-2 text-custom-burgundy font-semibold group-hover:text-purple-600 transition-colors duration-300" whileHover={{ x: 5 }}>
+                    <motion.button className="flex items-center space-x-2 text-custom-burgundy font-semibold font-roboto group-hover:text-purple-600 transition-colors duration-300" whileHover={{ x: 5 }}>
                       <span>Explore Details</span>
                       <ChevronRight className="w-4 h-4" />
                     </motion.button>
@@ -238,76 +243,6 @@ const Editions: React.FC = () => {
             ))}
           </div>
         </div>
-
-        <AnimatePresence>
-          {selectedEdition !== null && (
-            <motion.div
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedEdition(null)}
-            >
-              <motion.div
-                className="bg-white rounded-3xl p-8 max-w-3xl w-full max-h-[80vh] overflow-y-auto shadow-2xl"
-                initial={{ scale: 0.9, opacity: 0, y: 50 }}
-                animate={{ scale: 1, opacity: 1, y: 0 }}
-                exit={{ scale: 0.9, opacity: 0, y: 50 }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <div className="flex justify-between items-start mb-8">
-                  <div>
-                    <motion.div className={`inline-flex items-center px-4 py-2 rounded-full text-white font-bold text-sm mb-4 bg-gradient-to-r ${editions[selectedEdition].color}`}>
-                      {editions[selectedEdition].year}
-                    </motion.div>
-                    <h3 className="text-4xl font-bold text-slate-800">{editions[selectedEdition].title}</h3>
-                  </div>
-                  <motion.button 
-                    onClick={() => setSelectedEdition(null)} 
-                    className="p-3 hover:bg-slate-100 rounded-full transition-colors duration-200" 
-                    whileHover={{ scale: 1.1 }} 
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <X className="w-6 h-6" />
-                  </motion.button>
-                </div>
-
-                <p className="text-slate-600 text-lg mb-8 leading-relaxed">{editions[selectedEdition].description}</p>
-
-                <div className="mb-8">
-                  <h4 className="text-2xl font-bold text-slate-800 mb-6">Event Highlights</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {editions[selectedEdition].highlights.map((highlight, idx) => (
-                      <motion.div 
-                        key={idx} 
-                        className="flex items-center space-x-3 p-4 bg-slate-50 rounded-xl" 
-                        initial={{ opacity: 0, x: -20 }} 
-                        animate={{ opacity: 1, x: 0 }} 
-                        transition={{ delay: idx * 0.1 }}
-                      >
-                        <div className={`p-2 rounded-lg bg-gradient-to-r ${editions[selectedEdition].color}`}>
-                          <Award className="w-4 h-4 text-white" />
-                        </div>
-                        <span className="font-medium text-slate-700">{highlight}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex justify-center space-x-8">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-slate-800">{editions[selectedEdition].participants}</div>
-                    <div className="text-slate-500">Participants</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-slate-800">{editions[selectedEdition].sessions}</div>
-                    <div className="text-slate-500">Sessions</div>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
     </section>
   );

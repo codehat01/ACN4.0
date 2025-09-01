@@ -42,7 +42,7 @@ const About = () => {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary">3rd</div>
+                <div className="text-3xl font-bold font-roboto text-primary">3rd</div>
                 <div className="text-sm text-gray-600">Edition</div>
               </div>
             </motion.div>
@@ -54,7 +54,7 @@ const About = () => {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold font-roboto text-primary mb-6">
               About ACN
             </h2>
             
@@ -78,7 +78,7 @@ const About = () => {
                     <feature.icon className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">{feature.title}</h4>
+                    <h4 className="font-semibold font-roboto text-gray-900 mb-1">{feature.title}</h4>
                     <p className="text-sm text-gray-600">{feature.desc}</p>
                   </div>
                 </motion.div>
@@ -86,7 +86,7 @@ const About = () => {
             </div>
 
             <motion.button
-              className="px-8 py-3 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-colors duration-300"
+              className="px-8 py-3 bg-primary text-white font-semibold font-roboto rounded-full hover:bg-primary/90 transition-colors duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, y: 20 }}

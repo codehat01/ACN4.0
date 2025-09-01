@@ -19,7 +19,7 @@ const Hero = () => {
       title: "ACN 1st Edition",
       subtitle: "The Beginning of Excellence",
       description: "Where it all started - 500+ participants, 12 sessions of cybersecurity awareness",
-      image: "/src/images/1st.JPG",
+      image: "/src/images/1st.jpg",
       duration: 5000,
       year: "2022"
     },
@@ -261,7 +261,7 @@ const Hero = () => {
 
               {/* Main Title */}
               <motion.h1
-                className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-2 sm:mb-3 leading-tight px-2"
+                className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-roboto text-white mb-2 sm:mb-3 leading-tight px-2"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
@@ -271,7 +271,7 @@ const Hero = () => {
 
               {/* Subtitle */}
               <motion.h2
-                className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-custom-burgundy font-semibold mb-3 sm:mb-4 px-2"
+                className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white font-semibold font-roboto mb-3 sm:mb-4 px-2"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
@@ -298,7 +298,7 @@ const Hero = () => {
                   transition={{ duration: 0.6, delay: 0.9 }}
                 >
                   <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-3 sm:p-4 w-full max-w-2xl mx-auto">
-                    <h3 className="text-custom-burgundy text-base sm:text-lg font-semibold mb-3 sm:mb-4">Event Countdown</h3>
+                    <h3 className="text-custom-burgundy text-base sm:text-lg font-semibold font-roboto mb-3 sm:mb-4">Event Countdown</h3>
                     <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-4">
                       {[
                         { label: 'Months', value: timeLeft.months },
@@ -313,7 +313,7 @@ const Hero = () => {
                           animate={{ scale: [1, 1.05, 1] }}
                           transition={{ duration: 1, repeat: Infinity, delay: index * 0.1 }}
                         >
-                          <div className="text-lg sm:text-xl md:text-2xl font-bold text-white">
+                          <div className="text-lg sm:text-xl md:text-2xl font-bold font-roboto text-white">
                             {item.value.toString().padStart(2, '0')}
                           </div>
                           <div className="text-custom-burgundy text-xs sm:text-sm">{item.label}</div>
@@ -374,14 +374,14 @@ const Hero = () => {
                 transition={{ duration: 0.6, delay: 1 }}
               >
                 <motion.button
-                  className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-white text-gray-900 text-sm sm:text-base font-bold rounded-full hover:bg-gray-100 transition-colors duration-300 shadow-xl"
+                  className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-white text-gray-900 text-sm sm:text-base font-bold font-roboto rounded-full hover:bg-gray-100 transition-colors duration-300 shadow-xl"
                   whileHover={{ scale: 1.03, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   Explore Events
                 </motion.button>
                 <motion.button
-                  className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-transparent text-white text-sm sm:text-base font-bold rounded-full border-2 border-white hover:bg-white hover:text-gray-900 transition-all duration-300"
+                  className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-transparent text-white text-sm sm:text-base font-bold font-roboto rounded-full border-2 border-white hover:bg-white hover:text-gray-900 transition-all duration-300"
                   whileHover={{ scale: 1.03, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >

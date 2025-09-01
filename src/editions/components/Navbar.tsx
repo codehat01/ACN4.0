@@ -164,12 +164,16 @@ const Navbar = () => {
           >
             <div className="relative">
               <motion.div
-                className={`text-3xl font-bold transition-colors duration-300 ${
-                  isScrolled ? 'text-blue-400' : 'text-white'
-                }`}
+                className="transition-all duration-300"
                 style={{ height: '75px', display: 'flex', alignItems: 'center' }}
               >
-                ACN
+                <img 
+                  src="/images/Amrita_CyberNation_Logo___1-removebg-preview (1).png"
+                  alt="ACN Logo"
+                  className={`h-12 w-auto transition-opacity duration-300 ${
+                    isScrolled ? 'opacity-90' : 'opacity-100'
+                  }`}
+                />
               </motion.div>
             </div>
           </motion.div>
@@ -178,7 +182,7 @@ const Navbar = () => {
           <div className="hidden lg:flex flex-1 justify-center mx-8">
             <div className="relative overflow-hidden max-w-md">
               <motion.div
-                className="flex items-center space-x-8 text-white font-semibold whitespace-nowrap"
+                className="flex items-center space-x-8 text-white font-semibold font-roboto whitespace-nowrap"
                 animate={{
                   x: [300, -300]
                 }}
@@ -194,7 +198,7 @@ const Navbar = () => {
                 <span>ACN 4TH EDITION</span>
                 <span>|</span>
                 <motion.button
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-bold hover:from-purple-600 hover:to-blue-600 transition-all duration-300"
+                  className="bg-gradient-to-r from-custom-burgundy to-purple-600 text-white px-4 py-1 rounded-full text-sm font-bold font-roboto hover:from-purple-600 hover:to-blue-600 transition-all duration-300"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -204,7 +208,7 @@ const Navbar = () => {
                 <span>ACN 4TH EDITION</span>
                 <span>|</span>
                 <motion.button
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-bold hover:from-purple-600 hover:to-blue-600 transition-all duration-300"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-bold font-roboto hover:from-purple-600 hover:to-blue-600 transition-all duration-300"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -225,7 +229,7 @@ const Navbar = () => {
               >
                 <motion.button
                   onClick={() => handleNavigation(item)}
-                  className={`relative font-medium transition-all duration-300 px-4 py-2 rounded-full flex items-center space-x-1 ${
+                  className={`relative font-medium font-roboto transition-all duration-300 px-4 py-2 rounded-full flex items-center space-x-1 ${
                     isScrolled
                       ? 'text-white hover:text-white hover:bg-blue-600'
                       : 'text-white hover:text-white hover:bg-blue-600'
