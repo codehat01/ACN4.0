@@ -139,8 +139,8 @@ function HomePage() {
   return (
     <div className={`min-h-screen transition-colors duration-300 ${
       isDark 
-        ? 'bg-gradient-to-br from-gray-900 via-black to-blue-900' 
-        : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'
+        ? 'bg-gradient-to-br from-gray-900 via-black to-red-900' 
+        : 'bg-gradient-to-br from-red-50 via-white to-black-50'
     }`}>
       <Navbar 
         onAuthClick={() => setIsAuthModalOpen(true)}
@@ -154,17 +154,17 @@ function HomePage() {
         <section id="home" className="px-4 py-20 relative overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
             <div className={`absolute -top-40 -right-40 w-80 h-80 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float ${
-              isDark ? 'bg-blue-500/20' : 'bg-purple-500/20'
+              isDark ? 'bg-red-500/20' : 'bg-red-200/20'
             }`}></div>
             <div className={`absolute -bottom-40 -left-40 w-80 h-80 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float ${
-              isDark ? 'bg-purple-500/20' : 'bg-blue-500/20'
+              isDark ? 'bg-red-700/20' : 'bg-red-100/20'
             }`} style={{ animationDelay: '1s' }}></div>
             
             <div className={`absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent to-transparent animate-pulse opacity-20 ${
-              isDark ? 'via-blue-500/30' : 'via-purple-500/30'
+              isDark ? 'via-red-500/30' : 'via-red-400/30'
             }`}></div>
             <div className={`absolute top-0 left-3/4 w-px h-full bg-gradient-to-b from-transparent to-transparent animate-pulse opacity-20 ${
-              isDark ? 'via-purple-500/30' : 'via-blue-500/30'
+              isDark ? 'via-red-700/30' : 'via-red-300/30'
             }`} style={{ animationDelay: '1.5s' }}></div>
           </div>
           
@@ -178,18 +178,18 @@ function HomePage() {
               <h1 className={`text-5xl md:text-7xl font-bold mb-6 leading-tight ${
                 isDark ? 'text-white' : 'text-gray-900'
               }`}>
-                <span className={`font-mono ${isDark ? 'text-blue-400' : 'text-purple-600'}`}>[</span>ACN TechFest
-                <span className="gradient-text typing-cursor"> 4.0</span><span className={`font-mono ${isDark ? 'text-blue-400' : 'text-purple-600'}`}> ]</span>
+                <span className={`font-mono ${isDark ? 'text-red-400' : 'text-red-600'}`}>[</span>ACN TechFest
+                <span className="gradient-text typing-cursor"> 4.0</span><span className={`font-mono ${isDark ? 'text-red-400' : 'text-red-600'}`}> ]</span>
               </h1>
               <p className={`text-xl md:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed font-mono ${
                 isDark ? 'text-gray-300' : 'text-gray-600'
               }`}>
-                <span className={isDark ? 'text-blue-400' : 'text-purple-600'}>root@acn:~#</span> <span className={isDark ? 'text-green-400' : 'text-blue-600'}>./exploit</span> --target=<span className={isDark ? 'text-yellow-400' : 'text-orange-500'}>"cybersecurity_events"</span> --mode=<span className={isDark ? 'text-blue-400' : 'text-purple-500'}>interactive</span>
+                <span className={isDark ? 'text-red-400' : 'text-red-600'}>root@acn:~#</span> <span className={isDark ? 'text-green-400' : 'text-red-600'}>./exploit</span> --target=<span className={isDark ? 'text-yellow-400' : 'text-orange-500'}>"cybersecurity_events"</span> --mode=<span className={isDark ? 'text-red-400' : 'text-red-500'}>interactive</span>
               </p>
               <div className={`max-w-2xl mx-auto mb-12 text-left rounded-lg border p-4 font-mono text-sm ${
                 isDark 
-                  ? 'bg-black text-green-400 border-blue-500/30' 
-                  : 'bg-gray-900 text-green-400 border-purple-500/30'
+                  ? 'bg-black text-green-400 border-red-500/30' 
+                  : 'bg-gray-900 text-green-400 border-red-500/30'
               }`}>
                 <div className="flex items-center mb-2">
                   <span className={isDark ? 'text-red-400' : 'text-red-500'}>●</span>
@@ -205,13 +205,13 @@ function HomePage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
                   onClick={() => scrollToSection('events')}
-                  className="btn-primary font-mono"
+                  className="px-6 py-2 rounded-xl font-mono font-medium bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg hover:from-red-700 hover:to-red-800 transition-all duration-200"
                 >
                   ./scan --events
                 </button>
                 <button
                   onClick={() => scrollToSection('events')}
-                  className="btn-secondary font-mono"
+                  className="px-6 py-2 rounded-xl font-mono font-medium bg-black text-red-400 border border-red-500/50 shadow-lg hover:bg-red-900 hover:text-white transition-all duration-200"
                 >
                   nmap -sV events/
                 </button>
