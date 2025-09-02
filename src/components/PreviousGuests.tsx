@@ -30,18 +30,18 @@ const guestData = [
   { src: PG2, name: "Mr. Natarajan Elangovan", designation: "Head - Security Engineering at Wipro Limited, Chennai" },
   { src: PG3, name: "Mr. T. T. Aditya", designation: "Product Owner - Security and Privacy, Continental Corporation Pvt. Ltd." },
   { src: PG4, name: "Shri. S. Venkat Sairam", designation: "Chief Manager, Computer Systems Dept. CUB" },
-  { src: PG5, name: "Dr. Prabaharan Poornachandran", designation: "Director, Internet Studies and AI, AVV, Amritapuri" },
+  { src: PG5, name: "Dr. Prabaharan Poornachandran", designation: "Director, Internet Studies and Artificial Intelligence, AVV, Amritapuri" },
   { src: PG6, name: "Mr Yesudian Rajkumar J.K", designation: "Founder Amud Solutions, Zero Trust Consultant, Chennai" },
   { src: PG7, name: "Dr. Dittin Andrews", designation: "Joint Director Cyber Security, CDAC, Thiruvanthapuram" },
   { src: PG8, name: "Mr. Melvin John", designation: "Security Specialist at NEC Corporation India Pvt. Ltd, Bangalore" },
   { src: PG10, name: "Dr. Shankar Raman", designation: "CEO, Pravarthak Ecosystems, IIT Madras Research Park, Chennai" },
   { src: PG11, name: "Dr. S.A.V.Satyamurty", designation: "Director, Research, Vinayaga Missions Research Foundation" },
   { src: PG13, name: "Dr. Siraj Rahim DGM", designation: "Operation Technology, MRF Limited, Chennai" },
-  { src: PG15, name: "Mr. Sitaram Chamarty", designation: "Principal Consultant at TCS, Hyderabad" },
+  { src: PG15, name: "Mr.Sitaram Chamarty", designation: "Principal Consultant at TCS, Hyderabad" },
   { src: PG16, name: "Mr Natarajan Swarninathan", designation: "Senior Consultant, Cyber security practice, Tata Consultancy Services" },
-  { src: PG17, name: "Dr. Manikantan Srinivasan", designation: "Assistant General Manager, NEC Corporation India Pvt Limited" },
+  { src: PG17, name: "Dr. Manikantan Srinivasan", designation: "Assistant General Manager, (NMEC), NEC Corporation india Private Limited" },
   { src: PG18, name: "Mr. Andrew David Bhagyam", designation: "Privacy Program Manager, Zoho Corporation, Chennai" },
-  { src: PG19, name: "Ms. Panchi S", designation: "Managing Director, YesPanchi Tech Services Pvt Ltd, Chennai" },
+  { src: PG19, name: "Ms. panchi S", designation: "Managing Director, YesPanchi Tech Services Pvt Ltd, Chennai" },
   { src: PG20, name: "Mr. Aashish Vivekanand", designation: "Cloud Solution Architect, Trusted Services, Singapore" },
   { src: PG21, name: "Mr. Venkatesh Natarajan", designation: "Ex President-IT & Chief Digital Officer, Ashok Leyland Limited, Chennai" },
   { src: PG22, name: "Dr. N. Subramanian", designation: "Executive Director, SETS, Chennai" },
@@ -51,169 +51,102 @@ const guestData = [
   { src: PG26, name: "Mr. Raghuraman R", designation: "Founder - Meynikara XR Technologies" },
   { src: PG27, name: "Mr. Palanikumar Arumugam", designation: "Vice President - Information Security Equitas Small Finance Bank" },
 ];
+const loopedGuests = [...guestData, ...guestData];
 
-interface Guest {
-  src: string;
-  name: string;
-  designation: string;
+interface GalleryAnimationProps {
+  frameWidth?: number | string;
+  frameHeight?: number | string;
+  imageWidth?: number | string;
+  imageHeight?: number | string;
+  imageGap?: number | string;
 }
 
-const GalleryAnimation: React.FC = () => {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const galleryRef = useRef<HTMLDivElement>(null);
-  const [currentPercentage, setCurrentPercentage] = useState<number>(0);
-  const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
-  const [startX, setStartX] = useState<number>(0);
-  const animationRef = useRef<number>();
+const GalleryAnimation: React.FC<GalleryAnimationProps> = ({
+  frameWidth = '100%',
+  frameHeight = 'auto',
+  imageWidth = 280,
+  imageHeight = 450,
+  imageGap = 16
+}) => {
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const animationRef = useRef<number | null>(null);
 
+  const [offset, setOffset] = useState(0);
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Animate
   useEffect(() => {
-    const gallery = galleryRef.current;
-    if (!gallery) return;
-
-    const galleryObserver = new IntersectionObserver(
-      (entries: IntersectionObserverEntry[]) => {
-        entries.forEach((entry: IntersectionObserverEntry) => {
-          if (entry.isIntersecting) {
-            (entry.target as HTMLElement).style.opacity = '1';
-            (entry.target as HTMLElement).style.transform = 'translateY(0)';
-          } else {
-            (entry.target as HTMLElement).style.opacity = '0';
-            (entry.target as HTMLElement).style.transform = 'translateY(50px)';
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    galleryObserver.observe(gallery);
-
-    return () => {
-      galleryObserver.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
-    const animate = (): void => {
-      if (!isMouseDown) {
-        setCurrentPercentage(prev => {
-          const newPercentage = prev - 0.05; // Auto-scroll speed
-          return newPercentage <= -100 ? 0 : newPercentage; // Reset to 0 after reaching -100%
+    const animate = () => {
+      if (!isMouseDown && !isPaused) {
+        setOffset((prev) => {
+          const newOffset = prev - 1.5; // scroll speed (px/frame) - increased for faster scroll
+          const totalWidth = trackRef.current?.scrollWidth ? trackRef.current.scrollWidth / 2 : 0;
+          return newOffset <= -totalWidth ? 0 : newOffset;
         });
       }
-
-      if (trackRef.current) {
-        trackRef.current.style.transform = `translate(${currentPercentage}%, -50%)`;
-        
-        const images = trackRef.current.getElementsByClassName("image") as HTMLCollectionOf<HTMLImageElement>;
-        for (const image of images) {
-          image.style.objectPosition = `${100 + currentPercentage}% center`;
-        }
-      }
-
       animationRef.current = requestAnimationFrame(animate);
     };
-
     animationRef.current = requestAnimationFrame(animate);
-
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, [currentPercentage, isMouseDown]);
+  }, [isMouseDown, isPaused]);
 
-  const handleOnDown = (e: React.MouseEvent | React.TouchEvent): void => {
-    setIsMouseDown(true);
-    const clientX = 'clientX' in e ? e.clientX : e.touches[0].clientX;
+  // Apply transform
+  useEffect(() => {
+    if (trackRef.current) {
+      trackRef.current.style.transform = `translateX(${offset}px)`;
+      trackRef.current.style.transition = isMouseDown
+        ? "none"
+        : "transform 0.15s ease-out";
+    }
+  }, [offset, isMouseDown]);
+
+  // Drag handling
+  const handleDrag = (clientX: number) => {
+    const diff = clientX - startX;
+    setOffset((prev) => prev + diff);
     setStartX(clientX);
   };
-
-  const handleOnUp = (): void => {
-    setIsMouseDown(false);
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsMouseDown(true);
+    setStartX(e.clientX);
+  };
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setIsMouseDown(true);
+    setStartX(e.touches[0].clientX);
   };
 
-  const handleOnMove = (e: React.MouseEvent | React.TouchEvent): void => {
-    if (!isMouseDown) return;
-    
-    const currentX = 'clientX' in e ? e.clientX : e.touches[0].clientX;
-    const diff = startX - currentX;
-    const percentage = (diff / window.innerWidth) * 100;
-    
-    setCurrentPercentage(prev => 
-      Math.max(Math.min(prev - percentage, 0), -100)
-    );
-    setStartX(currentX);
-  };
-
-  // Inline styles object
-  const styles = {
-    galleries: {
-      opacity: 0,
-      transform: 'translateY(50px)',
-      transition: 'opacity 0.6s ease, transform 0.6s ease',
-    },
-    galleriesVisible: {
-      opacity: 1,
-      transform: 'translateY(0)',
-      transition: 'opacity 0.6s ease, transform 0.6s ease',
-    },
-    imageTrack: {
-      display: 'flex',
-      gap: '4vmin',
-      position: 'absolute' as const,
-      left: '50%',
-      top: '50%',
-      userSelect: 'none' as const,
-    },
-    image: {
-      width: '40vmin',
-      height: '56vmin',
-      objectFit: 'cover' as const,
-      objectPosition: '100% center',
-      borderRadius: '1rem',
-      transition: 'object-position 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-      cursor: 'grab' as const,
-    },
-    imageActive: {
-      cursor: 'grabbing' as const,
-    },
-    imageContainer: {
-      position: 'relative' as const,
-    },
-    overlay: {
-      position: 'absolute' as const,
-      bottom: 0,
-      left: 0,
-      right: 0,
-      background: 'linear-gradient(transparent, rgba(0, 0, 0, 0.8))',
-      color: 'white',
-      padding: '20px 15px 15px',
-      borderRadius: '0 0 1rem 1rem',
-      transform: 'translateY(100%)',
-      transition: 'transform 0.3s ease',
-    },
-    overlayVisible: {
-      transform: 'translateY(0)',
-    },
-    guestName: {
-      fontSize: '1rem',
-      fontWeight: 'bold' as const,
-      marginBottom: '5px',
-      lineHeight: '1.2',
-    },
-    guestDesignation: {
-      fontSize: '0.8rem',
-      opacity: 0.9,
-      lineHeight: '1.3',
-    },
-  };
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (isMouseDown) handleDrag(e.clientX);
+    };
+    const handleTouchMove = (e: TouchEvent) => {
+      if (isMouseDown) handleDrag(e.touches[0].clientX);
+    };
+    const handleEnd = () => {
+      if (isMouseDown) setIsMouseDown(false);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("touchmove", handleTouchMove);
+    window.addEventListener("mouseup", handleEnd);
+    window.addEventListener("touchend", handleEnd);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("mouseup", handleEnd);
+      window.removeEventListener("touchend", handleEnd);
+    };
+  }, [isMouseDown, startX]);
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 via-white to-gray-50 flex flex-col items-center py-12 px-4">
+  <div className="bg-gradient-to-br from-platinumGray via-pureWhite to-platinumGray flex flex-col items-center py-12 px-4">
       <div className="w-full max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-5xl font-bold tracking-wider mb-4 bg-gradient-to-r from-[#b22049] to-[#e63965] bg-clip-text text-transparent">
+        <div className="text-center mb-6">
+          <h1 className="text-3xl md:text-5xl font-bold font-roboto tracking-wider mb-4 bg-gradient-to-r from-[#b22049] to-[#e63965] bg-clip-text text-transparent">
             GALLERY
           </h1>
           <p className="text-gray-600 text-sm md:text-base max-w-2xl mx-auto">
@@ -221,39 +154,58 @@ const GalleryAnimation: React.FC = () => {
           </p>
         </div>
 
-        <div className="w-full h-screen overflow-hidden relative">
-          <div 
-            ref={galleryRef}
-            className="w-full h-full"
-            style={styles.galleries}
-            onMouseDown={handleOnDown}
-            onMouseUp={handleOnUp}
-            onMouseMove={handleOnMove}
-            onTouchStart={handleOnDown}
-            onTouchEnd={handleOnUp}
-            onTouchMove={handleOnMove}
+        {/* Gallery */}
+        <div className="relative overflow-hidden mb-6 flex justify-center" style={{
+          width: typeof frameWidth === 'number' ? `${frameWidth}px` : frameWidth,
+          height: typeof frameHeight === 'number' ? `${frameHeight}px` : frameHeight
+        }}>
+          <div
+            ref={trackRef}
+            className="flex items-center gap-2 md:gap-3 will-change-transform cursor-grab active:cursor-grabbing"
+            onMouseDown={handleMouseDown}
+            onTouchStart={handleTouchStart}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
           >
-            <div 
-              ref={trackRef}
-              style={{
-                ...styles.imageTrack,
-                transform: `translate(${currentPercentage}%, -50%)`,
-              }}
-            >
-              {guestData.map((guest: Guest, index: number) => (
-                  <img
-                    src={guest.src}
-                    alt={guest.name}
-                    draggable={false}
-                    style={{
-                      ...styles.image,
-                      objectPosition: `${110 + currentPercentage}% center`,
-                      ...(isMouseDown ? styles.imageActive : {}),
-                    }}
-                  />
-              ))}
-            </div>
+            {loopedGuests.map((guest, index) => (
+              <div 
+                key={index} 
+                className="flex flex-col items-center" 
+                style={{ 
+                  width: typeof imageWidth === 'number' ? `${imageWidth}px` : imageWidth,
+                  marginRight: typeof imageGap === 'number' ? `${imageGap}px` : imageGap
+                }}
+              >
+                <img
+                  className="image object-cover rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.15)] transition-all duration-[0.4s] select-none pointer-events-auto bg-[#222] hover:scale-[1] hover:shadow-[0_8px_32px_rgba(178,32,73,0.25)] hover:z-[1]"
+                  style={{
+                    width: typeof imageWidth === 'number' ? `${imageWidth}px` : imageWidth,
+                    height: typeof imageHeight === 'number' ? `${imageHeight}px` : imageHeight,
+                    objectPosition: 'center'
+                  }}
+                  src={guest.src}
+                  alt={guest.name}
+                  draggable={false}
+                />
+                <span className="mt-2 text-black text-sm md:text-base font-semibold font-roboto text-center truncate w-full">
+                  {guest.name}
+                </span>
+                <span className="text-gray-600 text-xs md:text-sm font-medium font-roboto text-center truncate w-full">
+                  {guest.designation}
+                </span>
+              </div>
+            ))}
           </div>
+        </div>
+
+        {/* Button */}
+        <div className="flex justify-center mt-6 md:mt-10">
+          <a
+            href="/gallery/gallery.html"
+            className="px-6 py-3 bg-gradient-to-r from-[#b22049] to-[#e63965] text-white rounded-full font-semibold font-roboto hover:scale-105 hover:shadow-lg transition-transform"
+          >
+            View Full Gallery
+          </a>
         </div>
       </div>
     </div>
