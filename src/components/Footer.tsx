@@ -17,12 +17,6 @@ import {
   Copy,
 } from "lucide-react";
 
-// --- NOTES -------------------------------------------------------------
-// • Updated with proper Google Maps Embed
-// • maps.png acts as a fallback image while iframe loads
-// • Fully responsive, works on mobile and desktop
-// ----------------------------------------------------------------------
-
 const FOOTER_LINKS = [
   { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
@@ -53,6 +47,7 @@ const VENUE = {
     time: "9:00 AM – 6:00 PM",
     expected: "1000+ Participants",
   },
+
 };
 
 // Proper Google Maps Embed URL (lat/long of venue)
@@ -188,14 +183,12 @@ export default function Footer() {
           <div className="relative overflow-hidden rounded-2xl mx-6 mb-0">
             <img
               src={VENUE.coverSrc}
-              alt={`${VENUE.title} campus`}
+              alt="Amrita Vishwa Vidyapeetham, Chennai campus"
               className="h-56 w-full object-cover sm:h-64"
               loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
             <div className="absolute bottom-4 left-4 right-4">
-              <h3 className="heading-section sm:text-xl">{VENUE.title}</h3>
-              <p className="caption text-white/85">{VENUE.subtitle}</p>
             </div>
           </div>
 

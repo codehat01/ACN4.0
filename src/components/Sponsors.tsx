@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 
 // --- Your logo imports (keep paths as-is) ---
 import Ashok_Leyland from "../images/Sponsors/Ashok_Leyland.png";
@@ -35,7 +36,7 @@ const repeat = (arr, times = 3) => Array.from({ length: times }, () => arr).flat
 
 const Card = ({ item }) => (
   <div
-    className="w-44 sm:w-48 md:w-52 h-24 sm:h-28 md:h-32 flex-shrink-0 rounded-2xl bg-gray-900/80 shadow-lg border border-gray-800/70
+    className="w-44 sm:w-48 md:w-52 h-24 sm:h-28 md:h-32 flex-shrink-0 rounded-2xl bg-white shadow-lg border border-gray-200
                hover:border-[var(--accent)]/30 transition-all duration-500 group"
   >
     <div className="relative w-full h-full p-3 sm:p-4 flex items-center justify-center rounded-2xl">
@@ -78,6 +79,7 @@ const MarqueeRow = ({ items, reverse = false, speedSec = 30, gapClass = "gap-8" 
 
 const SponsorsWeaveMarquee = () => {
   const accent = "#a3133f"; // your brand accent
+  const navigate = useNavigate();
   const split = Math.ceil(SPONSORS.length / 2);
   const row1 = SPONSORS.slice(0, split);
   const row2 = SPONSORS.slice(split);
@@ -89,7 +91,7 @@ const SponsorsWeaveMarquee = () => {
   return (
     <section
       id="sponsors"
-      className="relative overflow-hidden py-20 bg-gradient-to-br from-platinumGray to-royalBlue"
+      className="relative overflow-hidden py-10 sm:py-16 bg-gradient-to-br from-platinumGray to-royalBlue"
       style={{ ["--accent"]: accent, ["--speed"]: "30s" }}
       aria-label="Sponsors"
     >
@@ -101,35 +103,38 @@ const SponsorsWeaveMarquee = () => {
         .marquee-track:hover { animation-play-state: paused; }
       `}</style>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10 sm:mb-14">
-          <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm tracking-wide text-[var(--accent)] font-semibold backdrop-blur">
-            Powered By
-          </span>
-          <h2 className="mt-5 text-3xl sm:text-5xl font-extrabold text-white leading-tight">
-            Our <span className="text-[var(--accent)]">Sponsors</span>
-          </h2>
-          <p className="mt-3 text-sm sm:text-lg text-gray-300/90 max-w-3xl mx-auto">
-            Collaborating with industry leaders to advance cybersecurity education and innovation.
-          </p>
-        </div>
+      <div className="container mx-auto px-2 sm:px-4 lg:px-8">
+        <div className="rounded-3xl bg-black/95 shadow-2xl px-4 sm:px-8 py-10 sm:py-14">
+          <div className="text-center mb-10 sm:mb-14">
+            <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm tracking-wide text-[var(--accent)] font-semibold backdrop-blur">
+              Powered By
+            </span>
+            <h2 className="mt-5 text-3xl sm:text-5xl font-extrabold text-white leading-tight">
+              Our <span className="text-[var(--accent)]">Sponsors</span>
+            </h2>
+            <p className="mt-3 text-sm sm:text-lg text-gray-300/90 max-w-3xl mx-auto">
+              Collaborating with industry leaders to advance cybersecurity education and innovation.
+            </p>
+          </div>
 
-        {/* Two continuous lanes */}
-        <div className="space-y-8 sm:space-y-12">
-          {/* Top row (left → right or right → left). We choose leftwards for variety */}
-          <MarqueeRow items={safeRow1} reverse={false} speedSec={28} />
-          {/* Bottom row opposite direction */}
-          <MarqueeRow items={safeRow2} reverse={true} speedSec={32} />
-        </div>
+          {/* Two continuous lanes */}
+          <div className="space-y-8 sm:space-y-12">
+            {/* Top row (left → right or right → left). We choose leftwards for variety */}
+            <MarqueeRow items={safeRow1} reverse={false} speedSec={28} />
+            {/* Bottom row opposite direction */}
+            <MarqueeRow items={safeRow2} reverse={true} speedSec={32} />
+          </div>
 
-        {/* CTA (optional) */}
-        <div className="text-center mt-12 sm:mt-16">
-          <button
-            className="px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-semibold text-gray-900 bg-[var(--accent)] hover:bg-[#8d1034] active:bg-[#780d2c] transition-colors shadow-[0_8px_24px_rgba(163,19,63,0.45)]"
-            aria-label="Become a Partner"
-          >
-            All Partner's
-          </button>
+          {/* CTA (optional) */}
+          <div className="text-center mt-12 sm:mt-16">
+            <button
+              className="px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-semibold text-gray-900 bg-[var(--accent)] hover:bg-[#8d1034] active:bg-[#780d2c] transition-colors shadow-[0_8px_24px_rgba(163,19,63,0.45)]"
+              aria-label="Become a Partner"
+              onClick={() => navigate("/sponsors-complete")}
+            >
+              All Partner's
+            </button>
+          </div>
         </div>
       </div>
     </section>

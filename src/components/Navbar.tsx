@@ -42,22 +42,8 @@ const Navbar = () => {
     },
     { 
       name: 'Events 4.0', 
-      path: '#events',
-      onClick: () => {
-        if (!isEditionsPage) {
-          const element = document.querySelector('#events');
-          if (element) element.scrollIntoView({ behavior: 'smooth' });
-        } else {
-          navigate('/#events');
-        }
-      },
-      dropdown: [
-        { name: 'Keynote Sessions', path: '/events#keynote' },
-        { name: 'Technical Workshops', path: '/events#workshops' },
-        { name: 'Panel Discussions', path: '/events#panels' },
-        { name: 'Networking Events', path: '/events#networking' },
-        { name: 'Certification Programs', path: '/events#certification' }
-      ]
+      path: '/events4',
+      onClick: () => navigate('/events4')
     },
     { 
       name: 'Editions', 
