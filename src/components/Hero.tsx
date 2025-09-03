@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Calendar, Clock, MapPin, User } from 'lucide-react';
+import FIRST from '../images/1st.jpg';
+import SECOND from '../images/2nd.jpg';
+import THIRD from '../images/conclave.jpg';
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -19,7 +22,7 @@ const Hero = () => {
       title: "ACN 1st Edition",
       subtitle: "The Beginning of Excellence",
       description: "Where it all started - 500+ participants, 12 sessions of cybersecurity awareness",
-      image: "/src/images/1st.jpg",
+      image: FIRST,
       duration: 5000,
       year: "2022"
     },
@@ -28,7 +31,7 @@ const Hero = () => {
       title: "ACN 2nd Edition", 
       subtitle: "Building Momentum",
       description: "Expanded horizons - 750+ participants, international speakers, advanced workshops",
-      image: "/src/images/2nd.jpg",
+      image: SECOND,
       duration: 5000,
       year: "2023"
     },
@@ -37,7 +40,7 @@ const Hero = () => {
       title: "ACN 3rd Edition",
       subtitle: "Current Excellence",
       description: "The present milestone - 1000+ participants, cutting-edge cybersecurity insights",
-      image: "/src/images/conclave.jpg",
+      image: THIRD,
       duration: 20000,
       year: "2024",
     },

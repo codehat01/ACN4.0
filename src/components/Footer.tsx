@@ -17,6 +17,9 @@ import {
   Copy,
 } from "lucide-react";
 
+
+import COVERURL from '../images/Welcome.png';
+
 // --- NOTES -------------------------------------------------------------
 // • Updated with proper Google Maps Embed
 // • maps.png acts as a fallback image while iframe loads
@@ -47,7 +50,7 @@ const VENUE = {
     "Tamil Nadu, India",
   ],
   mapUrl: "https://maps.app.goo.gl/Jti2HcuEjwC52BYL9",
-  coverSrc: "/src/images/Welcome.png", // banner image
+  coverSrc: COVERURL, // banner image
   mapImgSrc: "/src/images/maps.png",   // static fallback map
   event: {
     name: "ACN 4th Edition",

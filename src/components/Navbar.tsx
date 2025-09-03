@@ -9,7 +9,7 @@ interface NavItem {
   name: string;
   path: string;
   onClick: () => void;
-  dropdown?: Array<{ name: string; path: string }>;
+  dropdown?: Array<{ name: string; path: string; onClick?: () => void }>;
 }
 
 const Navbar = () => {
@@ -54,6 +54,7 @@ const Navbar = () => {
         }
       },
       dropdown: [
+        { name: 'Event Registration Portal', path: '/events', onClick: () => navigate('/events') },
         { name: 'Keynote Sessions', path: '/events#keynote' },
         { name: 'Technical Workshops', path: '/events#workshops' },
         { name: 'Panel Discussions', path: '/events#panels' },
@@ -219,6 +220,7 @@ const Navbar = () => {
                   <span>ACN 4TH EDITION</span>
                   <span>|</span>
                   <motion.button
+                    onClick={() => navigate('/events')}
                     className="bg-gradient-to-r bg-custom-burgundy text-white px-4 py-1 rounded-full text-sm font-bold font-roboto hover:from-purple-600 hover:to-custom-burgundy transition-all duration-300"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
@@ -229,6 +231,7 @@ const Navbar = () => {
                   <span>ACN 4TH EDITION</span>
                   <span>|</span>
                   <motion.button
+                    onClick={() => navigate('/events')}
                     className="bg-gradient-to-r bg-custom-burgundy text-white px-4 py-1 rounded-full text-sm font-bold font-roboto hover:from-purple-600 hover:to-custom-burgundy transition-all duration-300"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}

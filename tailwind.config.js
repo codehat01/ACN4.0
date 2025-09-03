@@ -1,29 +1,59 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src//*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
         'custom-burgundy': '#b22049',
-    deepNavy: '#0F172A', // Main brand, headers, navigation
-    royalBlue: '#1E40AF', // Links, buttons, accents
-    elegantGold: '#D97706', // Premium accents, highlights
-    emeraldGreen: '#059669', // Success states, trust indicators
-    pureWhite: '#FFFFFF', // Clean backgrounds
-    platinumGray: '#F8FAFC', // Subtle backgrounds
-    charcoal: '#374151', // Professional text
-    midnight: '#111827', // Strong contrast text
+        deepNavy: '#0F172A', // Main brand, headers, navigation
+        royalBlue: '#1E40AF', // Links, buttons, accents
+        elegantGold: '#D97706', // Premium accents, highlights
+        emeraldGreen: '#059669', // Success states, trust indicators
+        pureWhite: '#FFFFFF', // Clean backgrounds
+        platinumGray: '#F8FAFC', // Subtle backgrounds
+        charcoal: '#374151', // Professional text
+        midnight: '#111827', // Strong contrast text
+        primary: {
+          50: '#eff6ff',
+          100: '#dbeafe',
+          200: '#bfdbfe',
+          300: '#93c5fd',
+          400: '#60a5fa',
+          500: '#3b82f6',
+          600: '#2563eb',
+          700: '#1d4ed8',
+          800: '#1e40af',
+          900: '#1e3a8a',
+          DEFAULT: '#3b82f6',
+        },
+        secondary: {
+          50: '#fdf4ff',
+          100: '#fae8ff',
+          200: '#f5d0fe',
+          300: '#f0abfc',
+          400: '#e879f9',
+          500: '#d946ef',
+          600: '#c026d3',
+          700: '#a21caf',
+          800: '#86198f',
+          900: '#701a75',
+          DEFAULT: '#d946ef',
+        },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['Space Grotesk', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
         poppins: ['Poppins', 'sans-serif'],
         roboto: ['Roboto', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'slide-up': 'slideUp 0.5s ease-out',
         'scale-in': 'scaleIn 0.3s ease-out',
         'pulse-slow': 'pulse 3s ease-in-out infinite',
+        'float': 'float 3s ease-in-out infinite',
+        'bounce-slow': 'bounce 2s infinite',
       },
       keyframes: {
         fadeIn: {
@@ -37,6 +67,10 @@ export default {
         scaleIn: {
           '0%': { transform: 'scale(0.9)', opacity: '0' },
           '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-10px)' },
         },
       },
       transitionTimingFunction: {
