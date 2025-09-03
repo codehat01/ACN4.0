@@ -28,7 +28,6 @@ const SPONSORS = [
   { name: "Skills DA", logo: Skills_Da },
   { name: "TCS", logo: TCS },
   { name: "Wipro", logo: Wipro },
-  // Add more logos freely — marquee stays seamless
 ];
 
 // Repeat the array N times to ensure each lane is wide enough even on big screens
@@ -53,7 +52,6 @@ const Card = ({ item }) => (
 );
 
 const MarqueeRow = ({ items, reverse = false, speedSec = 30, gapClass = "gap-8" }) => {
-  // Build a long sequence and then duplicate once more for seamless 200% track
   const longSeq = useMemo(() => repeat(items, 3), [items]);
   const track = useMemo(() => [...longSeq, ...longSeq], [longSeq]);
 
@@ -78,13 +76,12 @@ const MarqueeRow = ({ items, reverse = false, speedSec = 30, gapClass = "gap-8" 
 };
 
 const SponsorsWeaveMarquee = () => {
-  const accent = "#a3133f"; // your brand accent
+  const accent = "#a3133f";
   const navigate = useNavigate();
   const split = Math.ceil(SPONSORS.length / 2);
   const row1 = SPONSORS.slice(0, split);
   const row2 = SPONSORS.slice(split);
 
-  // Ensure both rows have content; if one is short, borrow from the other
   const safeRow1 = row1.length ? row1 : SPONSORS;
   const safeRow2 = row2.length ? row2 : SPONSORS;
 
@@ -95,7 +92,6 @@ const SponsorsWeaveMarquee = () => {
       style={{ ["--accent"]: accent, ["--speed"]: "30s" }}
       aria-label="Sponsors"
     >
-      {/* Local keyframes for perfect seamless scroll (200% track → translateX(-50%)) */}
       <style>{`
         @keyframes scrollX { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         @keyframes scrollXRev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
@@ -103,13 +99,13 @@ const SponsorsWeaveMarquee = () => {
         .marquee-track:hover { animation-play-state: paused; }
       `}</style>
 
-      <div className="container mx-auto px-2 sm:px-4 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="rounded-3xl bg-black/95 shadow-2xl px-4 sm:px-8 py-10 sm:py-14">
           <div className="text-center mb-10 sm:mb-14">
-            <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm tracking-wide text-[var(--accent)] font-semibold backdrop-blur">
+            <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm tracking-wide text-[var(--accent)] font-semibold font-roboto backdrop-blur">
               Powered By
             </span>
-            <h2 className="mt-5 text-3xl sm:text-5xl font-extrabold text-white leading-tight">
+            <h2 className="mt-5 text-3xl sm:text-5xl font-extrabold font-roboto text-white leading-tight">
               Our <span className="text-[var(--accent)]">Sponsors</span>
             </h2>
             <p className="mt-3 text-sm sm:text-lg text-gray-300/90 max-w-3xl mx-auto">
@@ -119,16 +115,14 @@ const SponsorsWeaveMarquee = () => {
 
           {/* Two continuous lanes */}
           <div className="space-y-8 sm:space-y-12">
-            {/* Top row (left → right or right → left). We choose leftwards for variety */}
             <MarqueeRow items={safeRow1} reverse={false} speedSec={28} />
-            {/* Bottom row opposite direction */}
             <MarqueeRow items={safeRow2} reverse={true} speedSec={32} />
           </div>
 
-          {/* CTA (optional) */}
+          {/* CTA */}
           <div className="text-center mt-12 sm:mt-16">
             <button
-              className="px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-semibold text-gray-900 bg-[var(--accent)] hover:bg-[#8d1034] active:bg-[#780d2c] transition-colors shadow-[0_8px_24px_rgba(163,19,63,0.45)]"
+              className="px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-semibold font-roboto text-gray-900 bg-[var(--accent)] hover:bg-[#8d1034] active:bg-[#780d2c] transition-colors shadow-[0_8px_24px_rgba(163,19,63,0.45)]"
               aria-label="Become a Partner"
               onClick={() => navigate("/sponsors-complete")}
             >
